@@ -1,26 +1,34 @@
-=== Plugin Name ===
+=== WordPress for My Clients ===
 Contributors: hchouhan, dreamsonline, dreamsmedia
 Donate link: http://www.dreamsonline.net
-Tags: customize, login, wordpress, admin, minimum, dashboad, cms, clients
+Tags: login logo, favicon, customize, login, apple touch, apple touch icon, upload, wordpress, admin, minimum, dashboad, cms, hide
 Requires at least: 3.5
 Tested up to: 3.5.2
-Stable tag: 1.0.0
-Last Updated: 2012-July-04
+Stable tag: 2.0
+Last Updated: 2013-May-21
+Plugin Name: WordPress for My Clients
+Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
+Author: Harish Chouhan
+Author URI: http://www.dreamsonline.net/wordpress-themes/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin allows you to customize WordPress by hiding non essential wp-admin components.
+
+This plugin allows you to customize WordPress by adding support to upload custom login logo, favicon & Apple touch icon and by hiding non essential wp-admin components.
 
 
 == Description ==
 
-This plugin allows you to customize WordPress by hiding non essential wp-admin components.
+This plugin allows you to customize WordPress by hiding non essential wp-admin components adding support for custom login logo and favicon for website and admin pages.
 
 
-= This plugin includes =
+= What does this plugin do? =
 * Hides non essential elements in the WordPress admin such as dashboard widgets and menu items.
+* Adds ability to upload a custom logo for the login screen
+* Adds ability to upload and set custom Favicon for your WordPress site and the WordPress admin.
+* Adds ability to upload Apple Touch Icon & choose its style.
 
-
+If you want to change your login logo, add custom favicon and hide non-essential WordPress components, then this is the best plugin for it. Don't forget to give a review if you find this plugin useful.
 
 Please report any bugs you find via http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
 
@@ -53,6 +61,12 @@ You can also visit the [support center](http://www.dreamsonline.net/wordpress-pl
 
 
 == Changelog ==
+
+= 2.0.0
+* Added support to upload custom logo for login page and set a custom height
+* Added support to upload favicon and apple touch icons for both the frontend and the dashboard
+* Added support to remove curved border and reflective shine from Apple touch icon
+
 
 = 1.0.0
 * This is the first version

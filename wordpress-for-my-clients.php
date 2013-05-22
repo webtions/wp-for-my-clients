@@ -2,16 +2,16 @@
 /*
  * Plugin Name: WordPress for my Clients
  * Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
- * Description: Helps customize WordPress for your clients by hiding non essential wp-admin components.
- * Version: 1.0.0
- * Author: Harish Chouhan
- * Author URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
+ * Description: Helps customize WordPress for your clients by hiding non essential wp-admin components and by adding support for custom login logo and favicon for website and admin pages.
+ * Version: 2.0
+ * Author: Dreams Online Themes
+ * Author URI: http://www.dreamsonline.net/wordpress-themes/
  * Author Email: hello@dreamsmedia.in
  *
  * @package WordPress
  * @subpackage DOT_WPFMC
  * @author Harish
- * @since 1.0.0
+ * @since 2.0
  *
  * License:
 
@@ -52,6 +52,9 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			// Adding Plugin Menu
 			add_action( 'admin_menu', array( &$this, 'dot_wpfmc_menu' ) );
 
+			 // Load our custom assets.
+        	add_action( 'admin_enqueue_scripts', array( &$this, 'dot_wpfmc_assets' ) );
+
 			// Register Settings
 			add_action( 'admin_init', array( &$this, 'dot_wpfmc_settings' ) );
 
@@ -67,6 +70,15 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			// Change Login header Title
 			add_filter( 'login_headertitle', array( &$this, 'dot_wpfmc_login_headertitle' ) );
 
+			// Change the default Login page Logo
+			add_action('login_head', array( &$this, 'dot_wpfmc_login_logo' ) );
+
+			// Add Favicon to website frontend
+			add_action('wp_head', array( &$this, 'dot_wpfmc_favicon_frontend' ) );
+
+			// Add Favicon to website backend
+			add_action('admin_head', array( &$this, 'dot_wpfmc_favicon_backend' ) );
+			add_action('login_head', array( &$this, 'dot_wpfmc_favicon_backend' ) );
 
 		} // end constructor
 
@@ -94,13 +106,29 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		function dot_wpfmc_menu()
 		{
 			$page_title = __('WordPress for my Clients', 'dot_wpfmc');
-			$menu_title = __('WordPress for my Clients', 'dot_wpfmc');
+			$menu_title = __('WP for my Clients', 'dot_wpfmc');
 			$capability = 'manage_options';
 			$menu_slug = 'dot_wpfmc';
 			$function =  array( &$this, 'dot_wpfmc_menu_contents');
 			add_options_page($page_title, $menu_title, $capability, $menu_slug, $function);
 
 		}	//dot_wpfmc_menu
+
+		/*--------------------------------------------*
+		 * Load Necessary JavaScript Files
+		 *--------------------------------------------*/
+
+		function dot_wpfmc_assets() {
+		    if (isset($_GET['page']) && $_GET['page'] == 'dot_wpfmc') {
+
+    			wp_enqueue_style( 'thickbox' ); // Stylesheet used by Thickbox
+   				wp_enqueue_script( 'thickbox' );
+    			wp_enqueue_script( 'media-upload' );
+
+		        wp_register_script('dot_wpfmc_admin', WP_PLUGIN_URL.'/wp-for-my-clients/js/dot_wpfmc_admin.js', array( 'thickbox', 'media-upload' ));
+		        wp_enqueue_script('dot_wpfmc_admin');
+		    }
+		} //dot_wpfmc_assets
 
 		/*--------------------------------------------*
 		 * Settings & Settings Page
@@ -118,9 +146,25 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 			add_settings_field( 'show_widgets', __( 'Show Dashboard Widgets', 'dot_wpfmc' ), array( &$this, 'section_show_dashboard_widgets' ), 'dot_wpfmc_settings', 'general' );
 
-			//add_settings_field( 'hide_settings', __( 'Hide Settings Menu', 'dot_wpfmc' ), array( &$this, 'section_hide_settings' ), 'dot_wpfmc_settings', 'general' );
+			// Logo Settings
+			add_settings_section( 'login_logo', __( 'Login Logo Settings', 'dot_wpfmc' ), array( &$this, 'section_login_logo' ), 'dot_wpfmc_settings' );
 
-			//add_settings_field( 'hide_tools', __( 'Hide Tools Menu', 'dot_wpfmc' ), array( &$this, 'section_hide_tools' ), 'dot_wpfmc_settings', 'general' );
+			add_settings_field( 'login_logo_url', __( 'Upload Login Logo', 'dot_wpfmc' ), array( &$this, 'section_login_logo_url' ), 'dot_wpfmc_settings', 'login_logo' );
+
+			add_settings_field( 'login_logo_height', __( 'Set Logo Height', 'dot_wpfmc' ), array( &$this, 'section_login_logo_height' ), 'dot_wpfmc_settings', 'login_logo' );
+
+			// Custom Favicon
+			add_settings_section( 'favicon', __( 'Custom Favicon & Apple touch icon', 'dot_wpfmc' ), array( &$this, 'section_favicon' ), 'dot_wpfmc_settings' );
+
+			add_settings_field( 'favicon_frontend_url', __( 'Favicon for Website', 'dot_wpfmc' ), array( &$this, 'section_favicon_frontend_url' ), 'dot_wpfmc_settings', 'favicon' );
+
+			add_settings_field( 'favicon_backend_url', __( 'Favicon for Admin', 'dot_wpfmc' ), array( &$this, 'section_favicon_backend_url' ), 'dot_wpfmc_settings', 'favicon' );
+
+			add_settings_field( 'apple_icon_frontend_url', __( 'Apple Touch Icon for Website', 'dot_wpfmc' ), array( &$this, 'section_apple_icon_frontend_url' ), 'dot_wpfmc_settings', 'favicon' );
+
+			add_settings_field( 'apple_icon_backend_url', __( 'Apple Touch Icon for Admin', 'dot_wpfmc' ), array( &$this, 'section_apple_icon_backend_url' ), 'dot_wpfmc_settings', 'favicon' );
+
+			add_settings_field( 'apple_icon_style', __( 'Basic Apple Touch Icon', 'dot_wpfmc' ), array( &$this, 'section_apple_icon_style' ), 'dot_wpfmc_settings', 'favicon' );
 
 
 		}	//dot_wpfmc_settings
@@ -143,7 +187,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 					<?php settings_fields('dot_wpfmc_settings'); ?>
 					<?php do_settings_sections('dot_wpfmc_settings'); ?>
 					<p class="submit">
-						<input name="Submit" type="submit" class="button-primary" value="<?php esc_attr_e('Save Changes', 'dot_wpfmc'); ?>" />
+						<input name="Submit" type="submit" class="button-primary" value="<?php _e('Save Changes', 'dot_wpfmc'); ?>" />
 					</p>
 				</form>
 			</div>
@@ -198,11 +242,89 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 		}
 
+		function section_login_logo() 	{
 
-		//function section_hide_tools()
-		//{
 
-		//}
+		}
+
+		function section_login_logo_url() 	{
+		    $options = get_option( 'dot_wpfmc_settings' );
+		    ?>
+		    <span class='upload'>
+		        <input type='text' id='dot_wpfmc_settings[login_logo_url]' class='regular-text text-upload' name='dot_wpfmc_settings[login_logo_url]' value='<?php echo esc_url( $options["login_logo_url"] ); ?>'/>
+		        <input type='button' class='button button-upload' value='Upload an image'/></br>
+		        <img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["login_logo_url"] ); ?>' class='preview-upload' />
+		    </span>
+		    <?php
+		}
+
+		function section_login_logo_height() 	{
+		    $options = get_option( 'dot_wpfmc_settings' );
+
+		    ?>
+		        <input type='text' id='dot_wpfmc_settings[login_logo_height]' class='text' name='dot_wpfmc_settings[login_logo_height]' value='<?php echo $options["login_logo_height"]; ?>'/> px
+		    <?php
+		}
+
+
+		function section_favicon() 	{
+
+
+		}
+
+		function section_favicon_frontend_url() {
+		    $options = get_option( 'dot_wpfmc_settings' );
+		    ?>
+		    <span class='upload'>
+		        <input type='text' id='dot_wpfmc_settings[favicon_frontend_url]' class='regular-text text-upload' name='dot_wpfmc_settings[favicon_frontend_url]' value='<?php echo esc_url( $options["favicon_frontend_url"] ); ?>'/>
+		        <input type='button' class='button button-upload' value='Upload an image'/></br>
+		        <img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["favicon_frontend_url"] ); ?>' class='preview-upload' />
+		    </span>
+		    <?php
+		}
+
+		function section_favicon_backend_url() {
+		    $options = get_option( 'dot_wpfmc_settings' );
+		    ?>
+		    <span class='upload'>
+		        <input type='text' id='dot_wpfmc_settings[favicon_backend_url]' class='regular-text text-upload' name='dot_wpfmc_settings[favicon_backend_url]' value='<?php echo esc_url( $options["favicon_backend_url"] ); ?>'/>
+		        <input type='button' class='button button-upload' value='Upload an image'/></br>
+		        <img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["favicon_backend_url"] ); ?>' class='preview-upload' />
+		    </span>
+		    <?php
+		}
+
+		function section_apple_icon_frontend_url() {
+		    $options = get_option( 'dot_wpfmc_settings' );
+		    ?>
+		    <span class='upload'>
+		        <input type='text' id='dot_wpfmc_settings[apple_icon_frontend_url]' class='regular-text text-upload' name='dot_wpfmc_settings[apple_icon_frontend_url]' value='<?php echo esc_url( $options["apple_icon_frontend_url"] ); ?>'/>
+		        <input type='button' class='button button-upload' value='Upload an image'/></br>
+		        <img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["apple_icon_frontend_url"] ); ?>' class='preview-upload' />
+		    </span>
+		    <?php
+		}
+
+		function section_apple_icon_backend_url() {
+		    $options = get_option( 'dot_wpfmc_settings' );
+		    ?>
+		    <span class='upload'>
+		        <input type='text' id='dot_wpfmc_settings[apple_icon_backend_url]' class='regular-text text-upload' name='dot_wpfmc_settings[apple_icon_backend_url]' value='<?php echo esc_url( $options["apple_icon_backend_url"] ); ?>'/>
+		        <input type='button' class='button button-upload' value='Upload an image'/></br>
+		        <img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["apple_icon_backend_url"] ); ?>' class='preview-upload' />
+		    </span>
+		    <?php
+		}
+
+		function section_apple_icon_style() {
+
+			$options = get_option( 'dot_wpfmc_settings' );
+			if( !isset($options['apple_icon_style']) ) $options['apple_icon_style'] = '0';
+
+			echo '<input type="hidden" name="dot_wpfmc_settings[apple_icon_style]" value="0" />
+			<label><input type="checkbox" name="dot_wpfmc_settings[apple_icon_style]" value="1"'. (($options['apple_icon_style']) ? ' checked="checked"' : '') .' />
+			 Disable Curved Border & reflective shine for Apple touch icon</label><br />';
+		}
 
 		/*--------------------------------------------*
 		 * Settings Validation
@@ -212,6 +334,69 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 			return $input;
 		}
+
+
+		// Add Favicon to website frontend
+		function dot_wpfmc_favicon_frontend() {
+			$options =  get_option('dot_wpfmc_settings');
+
+			if( $options['favicon_frontend_url'] != "" ) {
+		        echo '<link rel="shortcut icon" href="'.  esc_url( $options["favicon_frontend_url"] )  .'"/>'."\n";
+		    }
+
+		    if( $options['apple_icon_frontend_url'] != "" ) {
+
+		    	if ( $options['apple_icon_style'] == '0') {
+
+		        	echo '<link rel="apple-touch-icon" href="'.  esc_url( $options["apple_icon_frontend_url"] )  .'"/>'."\n";
+
+		    	}
+		    	else {
+
+		    		echo '<link rel="apple-touch-icon-precomposed" href="'.  esc_url( $options["apple_icon_frontend_url"] )  .'"/>'."\n";
+
+		    	}
+		    }
+		}
+
+
+		// Add Favicon to website backend
+		function dot_wpfmc_favicon_backend() {
+			$options =  get_option('dot_wpfmc_settings');
+
+			if( $options['favicon_backend_url'] != "" ) {
+		        echo '<link rel="shortcut icon" href="'.  esc_url( $options["favicon_backend_url"] )  .'"/>'."\n";
+		    }
+
+		    if( $options['apple_icon_backend_url'] != "" ) {
+
+		    	if ( $options['apple_icon_style'] == '0') {
+
+		        	echo '<link rel="apple-touch-icon" href="'.  esc_url( $options["apple_icon_backend_url"] )  .'"/>'."\n";
+
+		    	}
+		    	else {
+
+		    		echo '<link rel="apple-touch-icon-precomposed" href="'.  esc_url( $options["apple_icon_backend_url"] )  .'"/>'."\n";
+
+		    	}
+		    }
+		}
+
+
+		function dot_wpfmc_login_logo() {
+
+			$options = get_option( 'dot_wpfmc_settings' );
+			//if( !isset($options['login_logo_url']) ) $options['login_logo_url'] = '0';
+			//if( !isset($options['login_logo_url_height']) ) $options['login_logo_url_height'] = 'auto';
+
+			if( $options['login_logo_url'] != "" ) {
+				echo '<style type="text/css">
+	        	h1 a { background-image:url('.esc_url( $options["login_logo_url"] ).') !important; 	height:'.sanitize_text_field( $options["login_logo_height"] ).'px !important; background-size: auto auto !important; }
+	        		</style>';
+	    	}
+		}
+
 
 		/*--------------------------------------------*
 		 * Remove Admin Menus
