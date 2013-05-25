@@ -4,7 +4,7 @@ Donate link: http://www.dreamsonline.net
 Tags: login logo, favicon, customize, login, apple touch, apple touch icon, upload, wordpress, admin, minimum, dashboad, cms, hide
 Requires at least: 3.5
 Tested up to: 3.5.2
-Stable tag: 2.0
+Stable tag: 2.0.1
 Last Updated: 2013-May-21
 Plugin Name: WordPress for My Clients
 Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
