@@ -3,7 +3,7 @@
  * Plugin Name: WordPress for my Clients
  * Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
  * Description: Helps customize WordPress for your clients by hiding non essential wp-admin components and by adding support for custom login logo and favicon for website and admin pages.
- * Version: 2.0.3
+ * Version: 3.0.0
  * Author: Dreams Online Themes
  * Author URI: http://www.dreamsonline.net/wordpress-themes/
  * Author Email: hello@dreamsmedia.in
@@ -49,6 +49,10 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			// Load text domain
 			add_action( 'init', array( $this, 'load_localisation' ), 0 );
 
+			add_action( 'init', array( &$this, 'be_initialize_cmb_meta_boxes' ), 9999 );
+
+			add_action( 'init', array( &$this, 'dot_create_gallery' ) );
+
 			// Adding Plugin Menu
 			add_action( 'admin_menu', array( &$this, 'dot_wpfmc_menu' ) );
 
@@ -71,18 +75,73 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			add_filter( 'login_headertitle', array( &$this, 'dot_wpfmc_login_headertitle' ) );
 
 			// Change the default Login page Logo
-			add_action('login_head', array( &$this, 'dot_wpfmc_login_logo' ) );
+			add_action( 'login_head', array( &$this, 'dot_wpfmc_login_logo' ) );
 
 			// Add Favicon to website frontend
-			add_action('wp_head', array( &$this, 'dot_wpfmc_favicon_frontend' ) );
+			add_action( 'wp_head', array( &$this, 'dot_wpfmc_favicon_frontend' ) );
 
 			// Add Favicon to website backend
-			add_action('admin_head', array( &$this, 'dot_wpfmc_favicon_backend' ) );
-			add_action('login_head', array( &$this, 'dot_wpfmc_favicon_backend' ) );
+			add_action( 'admin_head', array( &$this, 'dot_wpfmc_favicon_backend' ) );
+			add_action( 'login_head', array( &$this, 'dot_wpfmc_favicon_backend' ) );
+
+			add_action('widgets_init', array( &$this, 'dot_widgets_init' ) );
+
+
+			// WooCommerce Branding
+			/**
+			 * Check if WooCommerce is active
+			 **/
+			// if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+			// 	add_filter( 'gettext', array( &$this, 'dot_wpfmc_woocommerce_menu_title' ) );
+			// 	add_filter( 'ngettext', array( &$this, 'dot_wpfmc_woocommerce_menu_title' ) );
+
+			// 	// Add WooCommerce Icon to website backend
+			// 	add_action( 'admin_head', array( &$this, 'dot_wpfmc_woocommerce_icon' ) );
+			// }
+
+
+
 
 
 
 		} // end constructor
+
+
+
+	// -------------- Initialize Metabox Class --------------
+	function be_initialize_cmb_meta_boxes() {
+		if ( !class_exists( 'cmb_Meta_Box' ) && ( current_theme_supports('dot_metabox_support') ) ) {
+			require_once( 'includes/metabox/init.php' );
+		}
+	}
+
+	// -------------- Initialize Custom Image Gallery --------------
+	function dot_create_gallery() {
+		if ( !function_exists( 'gallery_metabox_enqueue' ) && ( current_theme_supports('dot_gallery_support') ) ) {
+			require_once ('includes/gallery-metabox/gallery.php');
+		}
+	}
+
+	// -------------- Widgets --------------
+	function dot_widgets_init() {
+
+		// Contact Card Widget
+		require_once('includes/widgets/dot-contact.php');
+		register_widget('widget_contact');
+
+
+		// Facebook Widget
+		require_once('includes/widgets/dot-facebook.php');
+		register_widget('widget_facebook');
+
+		// Flickr Widget
+		require_once('includes/widgets/dot-flickr.php');
+		register_widget('widget_flickr');
+
+		// Embed Widget
+		require_once('includes/widgets/dot-embed.php');
+		register_widget('widget_embed');
+	}
 
 		/*--------------------------------------------*
 		 * Localisation | Public | 1.0 | Return : void
@@ -167,6 +226,21 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			add_settings_field( 'apple_icon_backend_url', __( 'Apple Touch Icon for Admin', 'dot_wpfmc' ), array( &$this, 'section_apple_icon_backend_url' ), 'dot_wpfmc_settings', 'favicon' );
 
 			add_settings_field( 'apple_icon_style', __( 'Basic Apple Touch Icon', 'dot_wpfmc' ), array( &$this, 'section_apple_icon_style' ), 'dot_wpfmc_settings', 'favicon' );
+
+			/**
+			 * Check if WooCommerce is active
+			 **/
+			if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+
+				// WooCommerce Branding
+				add_settings_section( 'woocommerce_branding', __( 'WooCommerce Branding', 'dot_wpfmc' ), array( &$this, 'section_woocommerce_branding' ), 'dot_wpfmc_settings' );
+
+				add_settings_field( 'woocommerce_branding_name', __( 'Name', 'dot_wpfmc' ), array( &$this, 'section_woocommerce_branding_name' ), 'dot_wpfmc_settings', 'woocommerce_branding' );
+
+				add_settings_field( 'woocommerce_branding_icon', __( 'Icon URL', 'dot_wpfmc' ), array( &$this, 'section_woocommerce_branding_icon' ), 'dot_wpfmc_settings', 'woocommerce_branding' );
+
+			}
+
 
 
 		}	//dot_wpfmc_settings
@@ -264,7 +338,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		    $options = get_option( 'dot_wpfmc_settings' );
 
 		    ?>
-		        <input type='text' id='dot_wpfmc_settings[login_logo_height]' class='text' name='dot_wpfmc_settings[login_logo_height]' value='<?php echo $options["login_logo_height"]; ?>'/> px
+		        <input type='text' id='dot_wpfmc_settings[login_logo_height]' class='text' name='dot_wpfmc_settings[login_logo_height]' value='<?php echo sanitize_text_field($options["login_logo_height"]); ?>'/> px
 		    <?php
 		}
 
@@ -326,6 +400,32 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			echo '<input type="hidden" name="dot_wpfmc_settings[apple_icon_style]" value="0" />
 			<label><input type="checkbox" name="dot_wpfmc_settings[apple_icon_style]" value="1"'. (($options['apple_icon_style']) ? ' checked="checked"' : '') .' />
 			 Disable Curved Border & reflective shine for Apple touch icon</label><br />';
+		}
+
+
+		function section_woocommerce_branding() 	{
+
+			_e( 'Replace WooCommerce branding with your own', 'dot_wpfmc' );
+
+		}
+
+		function section_woocommerce_branding_name() 	{
+		    $options = get_option( 'dot_wpfmc_settings' );
+
+		    ?>
+		        <input type='text' id='dot_wpfmc_settings[woocommerce_branding_name]' class='regular-text' name='dot_wpfmc_settings[woocommerce_branding_name]' value='<?php echo sanitize_text_field($options["woocommerce_branding_name"]); ?>'/>
+		    <?php
+		}
+
+		function section_woocommerce_branding_icon() 	{
+		    $options = get_option( 'dot_wpfmc_settings' );
+		    ?>
+		    <span class='upload'>
+		        <input type='text' id='dot_wpfmc_settings[woocommerce_branding_icon]' class='regular-text text-upload' name='dot_wpfmc_settings[woocommerce_branding_icon]' value='<?php echo esc_url( $options["woocommerce_branding_icon"] ); ?>'/>
+		        <input type='button' class='button button-upload' value='Upload an Icon'/></br>
+		        <img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["woocommerce_branding_icon"] ); ?>' class='preview-upload' />
+		    </span>
+		    <?php
 		}
 
 		/*--------------------------------------------*
@@ -467,7 +567,40 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			return home_url();
 		}
 
+		function dot_wpfmc_woocommerce_menu_title( $translated )
+		{
+			$options = get_option('dot_wpfmc_settings');
+			if( !isset($options['woocommerce_branding_name']) ) $options['woocommerce_branding_name'] = '';
 
+			//
+			if ( $options['woocommerce_branding_name'] == '') {
+				return $translated;
+
+			} else {
+		    	$translated = str_replace( 'WooCommerce', sanitize_text_field( $options["woocommerce_branding_name"]), $translated );
+		    	$translated = str_replace( 'WooCommerce', sanitize_text_field( $options["woocommerce_branding_name"]), $translated );
+		    	return $translated;
+			}
+
+
+		}
+
+		function dot_wpfmc_woocommerce_icon() {
+
+			$options = get_option( 'dot_wpfmc_settings' );
+
+
+			if( $options['woocommerce_branding_icon'] != "" ) {
+				echo '<style type="text/css">
+					#adminmenu #toplevel_page_woocommerce div.wp-menu-image {
+						background-image: url('.esc_url( $options["woocommerce_branding_icon"] ).');
+						background-size: auto;
+						background-position: 0 0;
+					}
+	        		</style>';
+	    	}
+
+		}
 
 
 	} // End Class
