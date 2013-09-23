@@ -3,9 +3,9 @@ Contributors: hchouhan, dreamsonline, dreamsmedia
 Donate link: http://www.dreamsonline.net
 Tags: login logo, favicon, customize, login, apple touch, apple touch icon, upload, wordpress, admin, minimum, dashboad, cms, hide
 Requires at least: 3.5
-Tested up to: 3.5.2
-Stable tag: 3.0.0
-Last Updated: 2013-July-13
+Tested up to: 3.6.1
+Stable tag: 3.0.1
+Last Updated: 2013-September-23
 Plugin Name: WordPress for My Clients
 Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
 Author: Harish Chouhan
@@ -38,7 +38,7 @@ If you want to change your login logo, add custom favicon and hide non-essential
 
 Please report any bugs you find via http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
 
-This is an experimental plugin created with a aim to keep themes light by adding common functionalities required by client projects into this plugin. This way updating websites is easier. 
+This is an experimental plugin created with a aim to keep themes light by adding common functionalities required by client projects into this plugin. This way updating websites is easier.
 
 
 
@@ -68,6 +68,9 @@ You can also visit the [support center](http://www.dreamsonline.net/wordpress-pl
 
 
 == Changelog ==
+
+= 3.0.1
+* Added width property to keep custom login logo visible when MP6 plugin is active
 
 = 3.0.0
 * Added Flickr, Facebook, Video Embed & Contact Address widgets
