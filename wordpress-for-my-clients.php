@@ -3,7 +3,7 @@
  * Plugin Name: WordPress for my Clients
  * Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
  * Description: Helps customize WordPress for your clients by hiding non essential wp-admin components and by adding support for custom login logo and favicon for website and admin pages.
- * Version: 3.0.2
+ * Version: 3.0.3
  * Author: Dreams Online Themes
  * Author URI: http://www.dreamsonline.net/wordpress-themes/
  * Author Email: hello@dreamsmedia.in
@@ -328,7 +328,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		    $options = get_option( 'dot_wpfmc_settings' );
 
 		    ?>
-		        <input type='text' id='dot_wpfmc_settings[facebook_admin_id]' class='text' name='dot_wpfmc_settings[facebook_admin_id]' value='<?php echo sanitize_text_field($options["facebook_admin_id"]); ?>'/> px
+		        <input type='text' id='dot_wpfmc_settings[facebook_admin_id]' class='text' name='dot_wpfmc_settings[facebook_admin_id]' value='<?php echo sanitize_text_field($options["facebook_admin_id"]); ?>'/>
 		    <?php
 		}
 
@@ -481,7 +481,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			$options =  get_option('dot_wpfmc_settings');
 
 			if( $options['facebook_admin_id'] != "" ) {
-		        echo '<meta property="fb:admins" content="'.  esc_url( $options["facebook_admin_id"] )  .'"/>'."\n";
+		        echo '<meta property="fb:admins" content="'.  sanitize_text_field( $options["facebook_admin_id"] )  .'"/>'."\n";
 		    }
 
 		}
