@@ -4,8 +4,8 @@ Donate link: http://www.dreamsonline.net
 Tags: login logo, favicon, customize, login, apple touch, apple touch icon, upload, wordpress, admin, minimum, dashboad, cms, hide
 Requires at least: 3.5
 Tested up to: 3.6.1
-Stable tag: 3.0.1
-Last Updated: 2013-September-23
+Stable tag: 3.0.2
+Last Updated: 2013-November-15
 Plugin Name: WordPress for My Clients
 Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
 Author: Harish Chouhan
@@ -28,6 +28,7 @@ This plugin allows you to customize WordPress by hiding non essential wp-admin c
 * Adds ability to upload and set custom Favicon for your WordPress site and the WordPress admin.
 * Adds ability to upload Apple Touch Icon & choose its style.
 * Adds a Facebook Widget
+* Adds option to add Facebook Admin ID (meta property for insights)
 * Adds a Flickr Widget
 * Adds a Video Embed Widget
 * Adds a Contact Address Widget
@@ -68,6 +69,9 @@ You can also visit the [support center](http://www.dreamsonline.net/wordpress-pl
 
 
 == Changelog ==
+
+= 3.0.2
+* Field to add Facebook admin id for Facebook Insights
 
 = 3.0.1
 * Added width property to keep custom login logo visible when MP6 plugin is active

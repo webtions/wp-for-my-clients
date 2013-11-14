@@ -3,7 +3,7 @@
  * Plugin Name: WordPress for my Clients
  * Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
  * Description: Helps customize WordPress for your clients by hiding non essential wp-admin components and by adding support for custom login logo and favicon for website and admin pages.
- * Version: 3.0.1
+ * Version: 3.0.2
  * Author: Dreams Online Themes
  * Author URI: http://www.dreamsonline.net/wordpress-themes/
  * Author Email: hello@dreamsmedia.in
@@ -79,6 +79,9 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 			// Add Favicon to website frontend
 			add_action( 'wp_head', array( &$this, 'dot_wpfmc_favicon_frontend' ) );
+
+			// Add Facebook Insights Admin to website frontend
+			add_action( 'wp_head', array( &$this, 'dot_wpfmc_facebook_admin_id' ) );
 
 			// Add Favicon to website backend
 			add_action( 'admin_head', array( &$this, 'dot_wpfmc_favicon_backend' ) );
@@ -207,6 +210,9 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 			add_settings_field( 'show_widgets', __( 'Show Dashboard Widgets', 'dot_wpfmc' ), array( &$this, 'section_show_dashboard_widgets' ), 'dot_wpfmc_settings', 'general' );
 
+
+			add_settings_field( 'facebook_admin_id', __( 'Facebook Admin', 'dot_wpfmc' ), array( &$this, 'section_facebook_admin_id' ), 'dot_wpfmc_settings', 'general' );
+
 			// Logo Settings
 			add_settings_section( 'login_logo', __( 'Login Logo Settings', 'dot_wpfmc' ), array( &$this, 'section_login_logo' ), 'dot_wpfmc_settings' );
 
@@ -316,6 +322,14 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			<label><input type="checkbox" name="dot_wpfmc_settings[show_recent_drafts]" value="1"'. (($options['show_recent_drafts']) ? ' checked="checked"' : '') .' />
 			 Show Recent Drafts Dashboard Widget</label>';
 
+		}
+
+		function section_facebook_admin_id() 	{
+		    $options = get_option( 'dot_wpfmc_settings' );
+
+		    ?>
+		        <input type='text' id='dot_wpfmc_settings[facebook_admin_id]' class='text' name='dot_wpfmc_settings[facebook_admin_id]' value='<?php echo sanitize_text_field($options["facebook_admin_id"]); ?>'/> px
+		    <?php
 		}
 
 		function section_login_logo() 	{
@@ -461,6 +475,16 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		    }
 		}
 
+
+		// Add Favicon to website frontend
+		function dot_wpfmc_facebook_admin_id() {
+			$options =  get_option('dot_wpfmc_settings');
+
+			if( $options['facebook_admin_id'] != "" ) {
+		        echo '<meta property="fb:admins" content="'.  esc_url( $options["facebook_admin_id"] )  .'"/>'."\n";
+		    }
+
+		}
 
 		// Add Favicon to website backend
 		function dot_wpfmc_favicon_backend() {
