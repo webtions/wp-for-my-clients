@@ -3,7 +3,7 @@
  * Plugin Name: WordPress for my Clients
  * Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
  * Description: Helps customize WordPress for your clients by hiding non essential wp-admin components and by adding support for custom login logo and favicon for website and admin pages.
- * Version: 3.0.3
+ * Version: 3.0.4
  * Author: Dreams Online Themes
  * Author URI: http://www.dreamsonline.net/wordpress-themes/
  * Author Email: hello@dreamsmedia.in
@@ -456,11 +456,11 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		function dot_wpfmc_favicon_frontend() {
 			$options =  get_option('dot_wpfmc_settings');
 
-			if( $options['favicon_frontend_url'] != "" ) {
+			if( isset($options['favicon_frontend_url']) && $options['favicon_frontend_url'] != "" ) {
 		        echo '<link rel="shortcut icon" href="'.  esc_url( $options["favicon_frontend_url"] )  .'"/>'."\n";
 		    }
 
-		    if( $options['apple_icon_frontend_url'] != "" ) {
+		    if( isset($options['apple_icon_frontend_url']) && $options['apple_icon_frontend_url'] != "" ) {
 
 		    	if ( $options['apple_icon_style'] == '0') {
 
@@ -480,7 +480,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		function dot_wpfmc_facebook_admin_id() {
 			$options =  get_option('dot_wpfmc_settings');
 
-			if( $options['facebook_admin_id'] != "" ) {
+			if( isset($options['facebook_admin_id']) && $options['facebook_admin_id'] != "" ) {
 		        echo '<meta property="fb:admins" content="'.  sanitize_text_field( $options["facebook_admin_id"] )  .'"/>'."\n";
 		    }
 
@@ -490,11 +490,11 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		function dot_wpfmc_favicon_backend() {
 			$options =  get_option('dot_wpfmc_settings');
 
-			if( $options['favicon_backend_url'] != "" ) {
+			if( isset($options['facebook_admin_id']) && $options['favicon_backend_url'] != "" ) {
 		        echo '<link rel="shortcut icon" href="'.  esc_url( $options["favicon_backend_url"] )  .'"/>'."\n";
 		    }
 
-		    if( $options['apple_icon_backend_url'] != "" ) {
+		    if( isset($options['apple_icon_backend_url']) && $options['apple_icon_backend_url'] != "" ) {
 
 		    	if ( $options['apple_icon_style'] == '0') {
 
@@ -516,7 +516,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			//if( !isset($options['login_logo_url']) ) $options['login_logo_url'] = '0';
 			//if( !isset($options['login_logo_url_height']) ) $options['login_logo_url_height'] = 'auto';
 
-			if( $options['login_logo_url'] != "" ) {
+			if( isset($options['login_logo_url']) && $options['login_logo_url'] != "" ) {
 				echo '<style type="text/css">
 	        	h1 a { background-image:url('.esc_url( $options["login_logo_url"] ).') !important; 	height:'.sanitize_text_field( $options["login_logo_height"] ).'px !important; background-size: auto auto !important; width: auto !important;}
 	        		</style>';
@@ -537,22 +537,22 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 
 			// Posts Menu
-			if ( $options['hide_post'] == '1') {
+			if ( isset($options['hide_post']) && $options['hide_post'] == '1') {
 			    remove_menu_page('edit.php');
 			}
 
 			// Tools Menu
-			if ( $options['hide_tools'] == '1') {
+			if ( isset($options['hide_tools']) && $options['hide_tools'] == '1') {
 			    remove_menu_page('tools.php');
 			}
 
 			// Comments Menu
-			if ( $options['hide_comments'] == '1') {
+			if ( isset($options['hide_comments']) && $options['hide_comments'] == '1') {
 			    remove_menu_page('edit-comments.php');
 			}
 
 			// Media Menu
-			if ( $options['hide_media'] == '1') {
+			if ( isset($options['hide_media']) && $options['hide_media'] == '1') {
 			    remove_menu_page('upload.php');
 			}
 
@@ -572,12 +572,12 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			$options = get_option('dot_wpfmc_settings');
 
 			// Quick Press Widget
-			if ( $options['show_quick_press'] == '0') {
+			if ( isset($options['show_quick_press']) && $options['show_quick_press'] == '0') {
 			    remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
 			}
 
 			// Recent Drafts Widget
-			if ( $options['show_recent_drafts'] == '0') {
+			if ( isset($options['show_recent_drafts']) && $options['show_recent_drafts'] == '0') {
 			    remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' );
 			}
 
@@ -597,7 +597,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			if( !isset($options['woocommerce_branding_name']) ) $options['woocommerce_branding_name'] = '';
 
 			//
-			if ( $options['woocommerce_branding_name'] == '') {
+			if ( isset($options['woocommerce_branding_name']) && $options['woocommerce_branding_name'] == '') {
 				return $translated;
 
 			} else {
@@ -614,7 +614,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			$options = get_option( 'dot_wpfmc_settings' );
 
 
-			if( $options['woocommerce_branding_icon'] != "" ) {
+			if( isset($options['woocommerce_branding_icon']) && $options['woocommerce_branding_icon'] != "" ) {
 				echo '<style type="text/css">
 					#adminmenu #toplevel_page_woocommerce div.wp-menu-image {
 						background-image: url('.esc_url( $options["woocommerce_branding_icon"] ).');
