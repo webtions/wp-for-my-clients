@@ -2,10 +2,10 @@
 Contributors: hchouhan, dreamsonline, dreamsmedia
 Donate link: http://www.dreamsonline.net
 Tags: login logo, favicon, customize, login, apple touch, apple touch icon, upload, wordpress, admin, minimum, dashboad, cms, hide
+Stable tag: 3.0.5
 Requires at least: 3.5
-Tested up to: 3.7.1
-Stable tag: 3.0.4
-Last Updated: 2013-November-19
+Tested up to: 3.8.1
+Last Updated: 2014-FEB-17
 Plugin Name: WordPress for My Clients
 Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
 Author: Harish Chouhan
@@ -69,6 +69,9 @@ You can also visit the [support center](http://www.dreamsonline.net/wordpress-pl
 
 
 == Changelog ==
+
+= 3.0.5
+* Changed WP_PLUGIN_URL to plugins_url()
 
 = 3.0.2
 * Field to add Facebook admin id for Facebook Insights
