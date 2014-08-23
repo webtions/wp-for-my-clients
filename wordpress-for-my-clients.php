@@ -52,6 +52,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			add_action( 'init', array( &$this, 'be_initialize_cmb_meta_boxes' ), 9999 );
 
 			add_action( 'init', array( &$this, 'dot_create_gallery' ) );
+			add_action( 'init', array( &$this, 'themeist_customizer_library' ), 9999 );
 
 			// Adding Plugin Menu
 			add_action( 'admin_menu', array( &$this, 'dot_wpfmc_menu' ) );
@@ -114,7 +115,12 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 		} // end constructor
 
-
+	// -------------- Initialize Metabox Class --------------
+	function themeist_customizer_library() {
+		if ( !class_exists( 'Customizer_Library' ) && ( current_theme_supports('themeist_customizer_library_support') ) ) {
+			require_once( 'includes/customizer-library/customizer-library.php' );
+		}
+	}
 
 	// -------------- Initialize Metabox Class --------------
 	function be_initialize_cmb_meta_boxes() {
