@@ -57,7 +57,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			add_action( 'admin_menu', array( &$this, 'dot_wpfmc_menu' ) );
 
 			 // Load our custom assets.
-        	add_action( 'admin_enqueue_scripts', array( &$this, 'dot_wpfmc_assets' ) );
+			add_action( 'admin_enqueue_scripts', array( &$this, 'dot_wpfmc_assets' ) );
 
 			// Register Settings
 			add_action( 'admin_init', array( &$this, 'dot_wpfmc_settings' ) );
@@ -80,8 +80,13 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			// Add Favicon to website frontend
 			add_action( 'wp_head', array( &$this, 'dot_wpfmc_favicon_frontend' ) );
 
-			// Add Facebook Insights Admin to website frontend
-			add_action( 'wp_head', array( &$this, 'dot_wpfmc_facebook_admin_id' ) );
+			// Add Meta
+			add_action( 'wp_head', array( &$this, 'dot_wpfmc_facebook_admin_id' ), 1 ); //Facebook Insights Admin
+			add_action( 'wp_head', array( &$this, 'dot_wpfmc_yahoo_verify' ), 1 ); //Yahoo Site Verification
+			add_action( 'wp_head', array( &$this, 'dot_wpfmc_google_verify' ), 1 ); //Google Site Verification
+			add_action( 'wp_head', array( &$this, 'dot_wpfmc_ms_verify' ), 1 ); //Microsoft Site Verification
+			add_action( 'wp_head', array( &$this, 'dot_wpfmc_pinterest_verify' ), 1 ); //Pinterest Site Verification
+			add_action( 'wp_head', array( &$this, 'dot_wpfmc_alexa_verify' ), 1 ); //Alexa Site Verification
 
 			// Add Favicon to website backend
 			add_action( 'admin_head', array( &$this, 'dot_wpfmc_favicon_backend' ) );
@@ -183,15 +188,15 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		 *--------------------------------------------*/
 
 		function dot_wpfmc_assets() {
-		    if (isset($_GET['page']) && $_GET['page'] == 'dot_wpfmc') {
+			if (isset($_GET['page']) && $_GET['page'] == 'dot_wpfmc') {
 
-    			wp_enqueue_style( 'thickbox' ); // Stylesheet used by Thickbox
-   				wp_enqueue_script( 'thickbox' );
-    			wp_enqueue_script( 'media-upload' );
+				wp_enqueue_style( 'thickbox' ); // Stylesheet used by Thickbox
+				wp_enqueue_script( 'thickbox' );
+				wp_enqueue_script( 'media-upload' );
 
-		        wp_register_script('dot_wpfmc_admin', plugins_url( '/js/dot_wpfmc_admin.js' , __FILE__ ), array( 'thickbox', 'media-upload' ));
-		        wp_enqueue_script('dot_wpfmc_admin');
-		    }
+				wp_register_script('dot_wpfmc_admin', plugins_url( '/js/dot_wpfmc_admin.js' , __FILE__ ), array( 'thickbox', 'media-upload' ));
+				wp_enqueue_script('dot_wpfmc_admin');
+			}
 		} //dot_wpfmc_assets
 
 		/*--------------------------------------------*
@@ -212,6 +217,13 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 
 			add_settings_field( 'facebook_admin_id', __( 'Facebook Admin', 'dot_wpfmc' ), array( &$this, 'section_facebook_admin_id' ), 'dot_wpfmc_settings', 'general' );
+
+			add_settings_field( 'google_verify', __( 'Google Webmaster Tools', 'dot_wpfmc' ), array( &$this, 'section_google_verify' ), 'dot_wpfmc_settings', 'general' );
+			add_settings_field( 'yahoo_verify', __( 'Yahoo Verfication Key', 'dot_wpfmc' ), array( &$this, 'section_yahoo_verify' ), 'dot_wpfmc_settings', 'general' );
+			add_settings_field( 'alexa_verify', __( 'Alexa Verification ID', 'dot_wpfmc' ), array( &$this, 'section_alexa_verify' ), 'dot_wpfmc_settings', 'general' );
+			add_settings_field( 'pinterest_verify', __( 'Pinterest', 'dot_wpfmc' ), array( &$this, 'section_pinterest_verify' ), 'dot_wpfmc_settings', 'general' );
+			add_settings_field( 'ms_verify', __( 'Bing Webmaster Tools', 'dot_wpfmc' ), array( &$this, 'section_ms_verify' ), 'dot_wpfmc_settings', 'general' );
+
 
 			// Logo Settings
 			add_settings_section( 'login_logo', __( 'Login Logo Settings', 'dot_wpfmc' ), array( &$this, 'section_login_logo' ), 'dot_wpfmc_settings' );
@@ -325,11 +337,45 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		}
 
 		function section_facebook_admin_id() 	{
-		    $options = get_option( 'dot_wpfmc_settings' );
+			$options = get_option( 'dot_wpfmc_settings' );
+			?>
+				<input type='text' id='dot_wpfmc_settings[facebook_admin_id]' class='text' name='dot_wpfmc_settings[facebook_admin_id]' value='<?php echo sanitize_text_field($options["facebook_admin_id"]); ?>'/>
+			<?php
+		}
 
-		    ?>
-		        <input type='text' id='dot_wpfmc_settings[facebook_admin_id]' class='text' name='dot_wpfmc_settings[facebook_admin_id]' value='<?php echo sanitize_text_field($options["facebook_admin_id"]); ?>'/>
-		    <?php
+		function section_google_verify() 	{
+			$options = get_option( 'dot_wpfmc_settings' );
+			?>
+				<input type='text' id='dot_wpfmc_settings[google_verify]' class='text' name='dot_wpfmc_settings[google_verify]' value='<?php echo sanitize_text_field($options["google_verify"]); ?>'/>
+			<?php
+		}
+
+		function section_yahoo_verify() 	{
+			$options = get_option( 'dot_wpfmc_settings' );
+			?>
+				<input type='text' id='dot_wpfmc_settings[yahoo_verify]' class='text' name='dot_wpfmc_settings[yahoo_verify]' value='<?php echo sanitize_text_field($options["yahoo_verify"]); ?>'/>
+			<?php
+		}
+
+		function section_alexa_verify() 	{
+			$options = get_option( 'dot_wpfmc_settings' );
+			?>
+				<input type='text' id='dot_wpfmc_settings[alexa_verify]' class='text' name='dot_wpfmc_settings[alexa_verify]' value='<?php echo sanitize_text_field($options["alexa_verify"]); ?>'/>
+			<?php
+		}
+
+		function section_pinterest_verify() 	{
+			$options = get_option( 'dot_wpfmc_settings' );
+			?>
+				<input type='text' id='dot_wpfmc_settings[pinterest_verify]' class='text' name='dot_wpfmc_settings[pinterest_verify]' value='<?php echo sanitize_text_field($options["pinterest_verify"]); ?>'/>
+			<?php
+		}
+
+		function section_ms_verify() 	{
+			$options = get_option( 'dot_wpfmc_settings' );
+			?>
+				<input type='text' id='dot_wpfmc_settings[ms_verify]' class='text' name='dot_wpfmc_settings[ms_verify]' value='<?php echo sanitize_text_field($options["ms_verify"]); ?>'/>
+			<?php
 		}
 
 		function section_login_logo() 	{
@@ -338,22 +384,22 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		}
 
 		function section_login_logo_url() 	{
-		    $options = get_option( 'dot_wpfmc_settings' );
-		    ?>
-		    <span class='upload'>
-		        <input type='text' id='dot_wpfmc_settings[login_logo_url]' class='regular-text text-upload' name='dot_wpfmc_settings[login_logo_url]' value='<?php echo esc_url( $options["login_logo_url"] ); ?>'/>
-		        <input type='button' class='button button-upload' value='Upload an image'/></br>
-		        <img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["login_logo_url"] ); ?>' class='preview-upload' />
-		    </span>
-		    <?php
+			$options = get_option( 'dot_wpfmc_settings' );
+			?>
+			<span class='upload'>
+				<input type='text' id='dot_wpfmc_settings[login_logo_url]' class='regular-text text-upload' name='dot_wpfmc_settings[login_logo_url]' value='<?php echo esc_url( $options["login_logo_url"] ); ?>'/>
+				<input type='button' class='button button-upload' value='Upload an image'/></br>
+				<img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["login_logo_url"] ); ?>' class='preview-upload' />
+			</span>
+			<?php
 		}
 
 		function section_login_logo_height() 	{
-		    $options = get_option( 'dot_wpfmc_settings' );
+			$options = get_option( 'dot_wpfmc_settings' );
 
-		    ?>
-		        <input type='text' id='dot_wpfmc_settings[login_logo_height]' class='text' name='dot_wpfmc_settings[login_logo_height]' value='<?php echo sanitize_text_field($options["login_logo_height"]); ?>'/> px
-		    <?php
+			?>
+				<input type='text' id='dot_wpfmc_settings[login_logo_height]' class='text' name='dot_wpfmc_settings[login_logo_height]' value='<?php echo sanitize_text_field($options["login_logo_height"]); ?>'/> px
+			<?php
 		}
 
 
@@ -363,47 +409,47 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		}
 
 		function section_favicon_frontend_url() {
-		    $options = get_option( 'dot_wpfmc_settings' );
-		    ?>
-		    <span class='upload'>
-		        <input type='text' id='dot_wpfmc_settings[favicon_frontend_url]' class='regular-text text-upload' name='dot_wpfmc_settings[favicon_frontend_url]' value='<?php echo esc_url( $options["favicon_frontend_url"] ); ?>'/>
-		        <input type='button' class='button button-upload' value='Upload an image'/></br>
-		        <img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["favicon_frontend_url"] ); ?>' class='preview-upload' />
-		    </span>
-		    <?php
+			$options = get_option( 'dot_wpfmc_settings' );
+			?>
+			<span class='upload'>
+				<input type='text' id='dot_wpfmc_settings[favicon_frontend_url]' class='regular-text text-upload' name='dot_wpfmc_settings[favicon_frontend_url]' value='<?php echo esc_url( $options["favicon_frontend_url"] ); ?>'/>
+				<input type='button' class='button button-upload' value='Upload an image'/></br>
+				<img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["favicon_frontend_url"] ); ?>' class='preview-upload' />
+			</span>
+			<?php
 		}
 
 		function section_favicon_backend_url() {
-		    $options = get_option( 'dot_wpfmc_settings' );
-		    ?>
-		    <span class='upload'>
-		        <input type='text' id='dot_wpfmc_settings[favicon_backend_url]' class='regular-text text-upload' name='dot_wpfmc_settings[favicon_backend_url]' value='<?php echo esc_url( $options["favicon_backend_url"] ); ?>'/>
-		        <input type='button' class='button button-upload' value='Upload an image'/></br>
-		        <img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["favicon_backend_url"] ); ?>' class='preview-upload' />
-		    </span>
-		    <?php
+			$options = get_option( 'dot_wpfmc_settings' );
+			?>
+			<span class='upload'>
+				<input type='text' id='dot_wpfmc_settings[favicon_backend_url]' class='regular-text text-upload' name='dot_wpfmc_settings[favicon_backend_url]' value='<?php echo esc_url( $options["favicon_backend_url"] ); ?>'/>
+				<input type='button' class='button button-upload' value='Upload an image'/></br>
+				<img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["favicon_backend_url"] ); ?>' class='preview-upload' />
+			</span>
+			<?php
 		}
 
 		function section_apple_icon_frontend_url() {
-		    $options = get_option( 'dot_wpfmc_settings' );
-		    ?>
-		    <span class='upload'>
-		        <input type='text' id='dot_wpfmc_settings[apple_icon_frontend_url]' class='regular-text text-upload' name='dot_wpfmc_settings[apple_icon_frontend_url]' value='<?php echo esc_url( $options["apple_icon_frontend_url"] ); ?>'/>
-		        <input type='button' class='button button-upload' value='Upload an image'/></br>
-		        <img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["apple_icon_frontend_url"] ); ?>' class='preview-upload' />
-		    </span>
-		    <?php
+			$options = get_option( 'dot_wpfmc_settings' );
+			?>
+			<span class='upload'>
+				<input type='text' id='dot_wpfmc_settings[apple_icon_frontend_url]' class='regular-text text-upload' name='dot_wpfmc_settings[apple_icon_frontend_url]' value='<?php echo esc_url( $options["apple_icon_frontend_url"] ); ?>'/>
+				<input type='button' class='button button-upload' value='Upload an image'/></br>
+				<img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["apple_icon_frontend_url"] ); ?>' class='preview-upload' />
+			</span>
+			<?php
 		}
 
 		function section_apple_icon_backend_url() {
-		    $options = get_option( 'dot_wpfmc_settings' );
-		    ?>
-		    <span class='upload'>
-		        <input type='text' id='dot_wpfmc_settings[apple_icon_backend_url]' class='regular-text text-upload' name='dot_wpfmc_settings[apple_icon_backend_url]' value='<?php echo esc_url( $options["apple_icon_backend_url"] ); ?>'/>
-		        <input type='button' class='button button-upload' value='Upload an image'/></br>
-		        <img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["apple_icon_backend_url"] ); ?>' class='preview-upload' />
-		    </span>
-		    <?php
+			$options = get_option( 'dot_wpfmc_settings' );
+			?>
+			<span class='upload'>
+				<input type='text' id='dot_wpfmc_settings[apple_icon_backend_url]' class='regular-text text-upload' name='dot_wpfmc_settings[apple_icon_backend_url]' value='<?php echo esc_url( $options["apple_icon_backend_url"] ); ?>'/>
+				<input type='button' class='button button-upload' value='Upload an image'/></br>
+				<img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["apple_icon_backend_url"] ); ?>' class='preview-upload' />
+			</span>
+			<?php
 		}
 
 		function section_apple_icon_style() {
@@ -424,22 +470,22 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		}
 
 		function section_woocommerce_branding_name() 	{
-		    $options = get_option( 'dot_wpfmc_settings' );
+			$options = get_option( 'dot_wpfmc_settings' );
 
-		    ?>
-		        <input type='text' id='dot_wpfmc_settings[woocommerce_branding_name]' class='regular-text' name='dot_wpfmc_settings[woocommerce_branding_name]' value='<?php echo sanitize_text_field($options["woocommerce_branding_name"]); ?>'/>
-		    <?php
+			?>
+				<input type='text' id='dot_wpfmc_settings[woocommerce_branding_name]' class='regular-text' name='dot_wpfmc_settings[woocommerce_branding_name]' value='<?php echo sanitize_text_field($options["woocommerce_branding_name"]); ?>'/>
+			<?php
 		}
 
 		function section_woocommerce_branding_icon() 	{
-		    $options = get_option( 'dot_wpfmc_settings' );
-		    ?>
-		    <span class='upload'>
-		        <input type='text' id='dot_wpfmc_settings[woocommerce_branding_icon]' class='regular-text text-upload' name='dot_wpfmc_settings[woocommerce_branding_icon]' value='<?php echo esc_url( $options["woocommerce_branding_icon"] ); ?>'/>
-		        <input type='button' class='button button-upload' value='Upload an Icon'/></br>
-		        <img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["woocommerce_branding_icon"] ); ?>' class='preview-upload' />
-		    </span>
-		    <?php
+			$options = get_option( 'dot_wpfmc_settings' );
+			?>
+			<span class='upload'>
+				<input type='text' id='dot_wpfmc_settings[woocommerce_branding_icon]' class='regular-text text-upload' name='dot_wpfmc_settings[woocommerce_branding_icon]' value='<?php echo esc_url( $options["woocommerce_branding_icon"] ); ?>'/>
+				<input type='button' class='button button-upload' value='Upload an Icon'/></br>
+				<img style='max-width: 300px; display: block;' src='<?php echo esc_url( $options["woocommerce_branding_icon"] ); ?>' class='preview-upload' />
+			</span>
+			<?php
 		}
 
 		/*--------------------------------------------*
@@ -457,22 +503,22 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			$options =  get_option('dot_wpfmc_settings');
 
 			if( isset($options['favicon_frontend_url']) && $options['favicon_frontend_url'] != "" ) {
-		        echo '<link rel="shortcut icon" href="'.  esc_url( $options["favicon_frontend_url"] )  .'"/>'."\n";
-		    }
+				echo '<link rel="shortcut icon" href="'.  esc_url( $options["favicon_frontend_url"] )  .'"/>'."\n";
+			}
 
-		    if( isset($options['apple_icon_frontend_url']) && $options['apple_icon_frontend_url'] != "" ) {
+			if( isset($options['apple_icon_frontend_url']) && $options['apple_icon_frontend_url'] != "" ) {
 
-		    	if ( $options['apple_icon_style'] == '0') {
+				if ( $options['apple_icon_style'] == '0') {
 
-		        	echo '<link rel="apple-touch-icon" href="'.  esc_url( $options["apple_icon_frontend_url"] )  .'"/>'."\n";
+					echo '<link rel="apple-touch-icon" href="'.  esc_url( $options["apple_icon_frontend_url"] )  .'"/>'."\n";
 
-		    	}
-		    	else {
+				}
+				else {
 
-		    		echo '<link rel="apple-touch-icon-precomposed" href="'.  esc_url( $options["apple_icon_frontend_url"] )  .'"/>'."\n";
+					echo '<link rel="apple-touch-icon-precomposed" href="'.  esc_url( $options["apple_icon_frontend_url"] )  .'"/>'."\n";
 
-		    	}
-		    }
+				}
+			}
 		}
 
 
@@ -481,32 +527,77 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			$options =  get_option('dot_wpfmc_settings');
 
 			if( isset($options['facebook_admin_id']) && $options['facebook_admin_id'] != "" ) {
-		        echo '<meta property="fb:admins" content="'.  sanitize_text_field( $options["facebook_admin_id"] )  .'"/>'."\n";
-		    }
-
+				echo '<meta property="fb:admins" content="'.  sanitize_text_field( $options["facebook_admin_id"] )  .'"/>'."\n";
+			}
 		}
+
+		// Add Google verification code to website frontend
+		function dot_wpfmc_google_verify() {
+			$options =  get_option('dot_wpfmc_settings');
+
+			if( isset($options['google_verify']) && $options['google_verify'] != "" ) {
+				echo '<meta name="google-site-verification" content="'.  sanitize_text_field( $options["google_verify"] )  .'"/>'."\n";
+			}
+		}
+
+		// Add Yahoo verification code to website frontend
+		function dot_wpfmc_yahoo_verify() {
+			$options =  get_option('dot_wpfmc_settings');
+
+			if( isset($options['yahoo_verify']) && $options['yahoo_verify'] != "" ) {
+				echo '<meta name="y_key" content="'.  sanitize_text_field( $options["yahoo_verify"] )  .'"/>'."\n";
+			}
+		}
+
+		// Add Bing verification code to website frontend
+		function dot_wpfmc_ms_verify() {
+			$options =  get_option('dot_wpfmc_settings');
+
+			if( isset($options['ms_verify']) && $options['ms_verify'] != "" ) {
+				echo '<meta name="msvalidate.01" content="'.  sanitize_text_field( $options["ms_verify"] )  .'"/>'."\n";
+			}
+		}
+
+		// Add Pinterest verification code to website frontend
+		function dot_wpfmc_pinterest_verify() {
+			$options =  get_option('dot_wpfmc_settings');
+
+			if( isset($options['pinterest_verify']) && $options['pinterest_verify'] != "" ) {
+				echo '<meta name="p:domain_verify" content="'.  sanitize_text_field( $options["pinterest_verify"] )  .'"/>'."\n";
+			}
+		}
+
+		// Add Alexa verification code to website frontend
+		function dot_wpfmc_alexa_verify() {
+			$options =  get_option('dot_wpfmc_settings');
+
+			if( isset($options['alexa_verify']) && $options['alexa_verify'] != "" ) {
+				echo '<meta name="alexaVerifyID" content="'.  sanitize_text_field( $options["alexa_verify"] )  .'"/>'."\n";
+			}
+		}
+
 
 		// Add Favicon to website backend
 		function dot_wpfmc_favicon_backend() {
 			$options =  get_option('dot_wpfmc_settings');
 
 			if( isset($options['facebook_admin_id']) && $options['favicon_backend_url'] != "" ) {
-		        echo '<link rel="shortcut icon" href="'.  esc_url( $options["favicon_backend_url"] )  .'"/>'."\n";
-		    }
+				echo '<link rel="shortcut icon" href="'.  esc_url( $options["favicon_backend_url"] )  .'"/>'."\n";
+			}
 
-		    if( isset($options['apple_icon_backend_url']) && $options['apple_icon_backend_url'] != "" ) {
+			if( isset($options['apple_icon_backend_url']) && $options['apple_icon_backend_url'] != "" ) {
 
-		    	if ( $options['apple_icon_style'] == '0') {
+				if ( $options['apple_icon_style'] == '0') {
 
-		        	echo '<link rel="apple-touch-icon" href="'.  esc_url( $options["apple_icon_backend_url"] )  .'"/>'."\n";
+					echo '<link rel="apple-touch-icon" href="'.  esc_url( $options["apple_icon_backend_url"] )  .'"/>'."\n";
 
-		    	}
-		    	else {
+				}
+				else {
 
-		    		echo '<link rel="apple-touch-icon-precomposed" href="'.  esc_url( $options["apple_icon_backend_url"] )  .'"/>'."\n";
+					echo '<link rel="apple-touch-icon-precomposed" href="'.  esc_url( $options["apple_icon_backend_url"] )  .'"/>'."\n";
 
-		    	}
-		    }
+				}
+			}
 		}
 
 
@@ -518,9 +609,9 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 			if( isset($options['login_logo_url']) && $options['login_logo_url'] != "" ) {
 				echo '<style type="text/css">
-	        	h1 a { background-image:url('.esc_url( $options["login_logo_url"] ).') !important; 	height:'.sanitize_text_field( $options["login_logo_height"] ).'px !important; background-size: auto auto !important; width: auto !important;}
-	        		</style>';
-	    	}
+				h1 a { background-image:url('.esc_url( $options["login_logo_url"] ).') !important; 	height:'.sanitize_text_field( $options["login_logo_height"] ).'px !important; background-size: auto auto !important; width: auto !important;}
+					</style>';
+			}
 		}
 
 
@@ -538,22 +629,22 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 			// Posts Menu
 			if ( isset($options['hide_post']) && $options['hide_post'] == '1') {
-			    remove_menu_page('edit.php');
+				remove_menu_page('edit.php');
 			}
 
 			// Tools Menu
 			if ( isset($options['hide_tools']) && $options['hide_tools'] == '1') {
-			    remove_menu_page('tools.php');
+				remove_menu_page('tools.php');
 			}
 
 			// Comments Menu
 			if ( isset($options['hide_comments']) && $options['hide_comments'] == '1') {
-			    remove_menu_page('edit-comments.php');
+				remove_menu_page('edit-comments.php');
 			}
 
 			// Media Menu
 			if ( isset($options['hide_media']) && $options['hide_media'] == '1') {
-			    remove_menu_page('upload.php');
+				remove_menu_page('upload.php');
 			}
 
 		}
@@ -573,12 +664,12 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 			// Quick Press Widget
 			if ( isset($options['show_quick_press']) && $options['show_quick_press'] == '0') {
-			    remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
+				remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
 			}
 
 			// Recent Drafts Widget
 			if ( isset($options['show_recent_drafts']) && $options['show_recent_drafts'] == '0') {
-			    remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' );
+				remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' );
 			}
 
 		}
@@ -601,9 +692,9 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 				return $translated;
 
 			} else {
-		    	$translated = str_replace( 'WooCommerce', sanitize_text_field( $options["woocommerce_branding_name"]), $translated );
-		    	$translated = str_replace( 'WooCommerce', sanitize_text_field( $options["woocommerce_branding_name"]), $translated );
-		    	return $translated;
+				$translated = str_replace( 'WooCommerce', sanitize_text_field( $options["woocommerce_branding_name"]), $translated );
+				$translated = str_replace( 'WooCommerce', sanitize_text_field( $options["woocommerce_branding_name"]), $translated );
+				return $translated;
 			}
 
 
@@ -622,8 +713,8 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 						background-position: 0 0;
 
 					}
-	        		</style>';
-	    	}
+					</style>';
+			}
 
 		}
 
