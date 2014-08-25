@@ -96,6 +96,10 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			add_action('widgets_init', array( &$this, 'dot_widgets_init' ) );
 
 
+			// Feedburner Redirects
+			add_action( 'template_redirect', array( &$this, 'dot_wpfmc_redirect_rss_feeds' ) );
+			add_action( 'feed_link', array( &$this, 'dot_wpfmc_custom_rss_feed' ), 10, 2 );
+
 			// WooCommerce Branding
 			/**
 			 * Check if WooCommerce is active
@@ -115,47 +119,48 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 		} // end constructor
 
-	// -------------- Initialize Metabox Class --------------
-	function themeist_customizer_library() {
-		if ( !class_exists( 'Customizer_Library' ) && ( current_theme_supports('themeist_customizer_library_support') ) ) {
-			require_once( 'includes/customizer-library/customizer-library.php' );
+
+		// -------------- Initialize Metabox Class --------------
+		function themeist_customizer_library() {
+			if ( !class_exists( 'Customizer_Library' ) && ( current_theme_supports('themeist_customizer_library_support') ) ) {
+				require_once( 'includes/customizer-library/customizer-library.php' );
+			}
 		}
-	}
 
-	// -------------- Initialize Metabox Class --------------
-	function be_initialize_cmb_meta_boxes() {
-		if ( !class_exists( 'cmb_Meta_Box' ) && ( current_theme_supports('dot_metabox_support') ) ) {
-			require_once( 'includes/metabox/init.php' );
+		// -------------- Initialize Metabox Class --------------
+		function be_initialize_cmb_meta_boxes() {
+			if ( !class_exists( 'cmb_Meta_Box' ) && ( current_theme_supports('dot_metabox_support') ) ) {
+				require_once( 'includes/metabox/init.php' );
+			}
 		}
-	}
 
-	// -------------- Initialize Custom Image Gallery --------------
-	function dot_create_gallery() {
-		if ( !function_exists( 'gallery_metabox_enqueue' ) && ( current_theme_supports('dot_gallery_support') ) ) {
-			require_once ('includes/gallery-metabox/gallery.php');
+		// -------------- Initialize Custom Image Gallery --------------
+		function dot_create_gallery() {
+			if ( !function_exists( 'gallery_metabox_enqueue' ) && ( current_theme_supports('dot_gallery_support') ) ) {
+				require_once ('includes/gallery-metabox/gallery.php');
+			}
 		}
-	}
 
-	// -------------- Widgets --------------
-	function dot_widgets_init() {
+		// -------------- Widgets --------------
+		function dot_widgets_init() {
 
-		// Contact Card Widget
-		require_once('includes/widgets/dot-contact.php');
-		register_widget('widget_contact');
+			// Contact Card Widget
+			require_once('includes/widgets/dot-contact.php');
+			register_widget('widget_contact');
 
 
-		// Facebook Widget
-		require_once('includes/widgets/dot-facebook.php');
-		register_widget('widget_facebook');
+			// Facebook Widget
+			require_once('includes/widgets/dot-facebook.php');
+			register_widget('widget_facebook');
 
-		// Flickr Widget
-		require_once('includes/widgets/dot-flickr.php');
-		register_widget('widget_flickr');
+			// Flickr Widget
+			require_once('includes/widgets/dot-flickr.php');
+			register_widget('widget_flickr');
 
-		// Embed Widget
-		require_once('includes/widgets/dot-embed.php');
-		register_widget('widget_embed');
-	}
+			// Embed Widget
+			require_once('includes/widgets/dot-embed.php');
+			register_widget('widget_embed');
+		}
 
 		/*--------------------------------------------*
 		 * Localisation | Public | 1.0 | Return : void
@@ -216,14 +221,9 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 			// General Settings
 			add_settings_section( 'general', __( 'General Settings', 'dot_wpfmc' ), array( &$this, 'section_general' ), 'dot_wpfmc_settings' );
-
 			add_settings_field( 'remove_menus', __( 'Remove Admin Menus', 'dot_wpfmc' ), array( &$this, 'section_remove_menus' ), 'dot_wpfmc_settings', 'general' );
-
 			add_settings_field( 'show_widgets', __( 'Show Dashboard Widgets', 'dot_wpfmc' ), array( &$this, 'section_show_dashboard_widgets' ), 'dot_wpfmc_settings', 'general' );
-
-
 			add_settings_field( 'facebook_admin_id', __( 'Facebook Admin', 'dot_wpfmc' ), array( &$this, 'section_facebook_admin_id' ), 'dot_wpfmc_settings', 'general' );
-
 			add_settings_field( 'google_verify', __( 'Google Webmaster Tools', 'dot_wpfmc' ), array( &$this, 'section_google_verify' ), 'dot_wpfmc_settings', 'general' );
 			add_settings_field( 'yahoo_verify', __( 'Yahoo Verfication Key', 'dot_wpfmc' ), array( &$this, 'section_yahoo_verify' ), 'dot_wpfmc_settings', 'general' );
 			add_settings_field( 'alexa_verify', __( 'Alexa Verification ID', 'dot_wpfmc' ), array( &$this, 'section_alexa_verify' ), 'dot_wpfmc_settings', 'general' );
@@ -231,24 +231,21 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			add_settings_field( 'ms_verify', __( 'Bing Webmaster Tools', 'dot_wpfmc' ), array( &$this, 'section_ms_verify' ), 'dot_wpfmc_settings', 'general' );
 
 
+			// Feed Settings
+			add_settings_section( 'feedburner_configuration', __( 'Feedburner Settings', 'dot_wpfmc' ), array( &$this, 'section_feedburner_configuration' ), 'dot_wpfmc_settings' );
+			add_settings_field( 'feedburner_url', __( 'Feedburner URL', 'dot_wpfmc' ), array( &$this, 'section_feedburner_url' ), 'dot_wpfmc_settings', 'feedburner_configuration' );
+
 			// Logo Settings
 			add_settings_section( 'login_logo', __( 'Login Logo Settings', 'dot_wpfmc' ), array( &$this, 'section_login_logo' ), 'dot_wpfmc_settings' );
-
 			add_settings_field( 'login_logo_url', __( 'Upload Login Logo', 'dot_wpfmc' ), array( &$this, 'section_login_logo_url' ), 'dot_wpfmc_settings', 'login_logo' );
-
 			add_settings_field( 'login_logo_height', __( 'Set Logo Height', 'dot_wpfmc' ), array( &$this, 'section_login_logo_height' ), 'dot_wpfmc_settings', 'login_logo' );
 
 			// Custom Favicon
 			add_settings_section( 'favicon', __( 'Custom Favicon & Apple touch icon', 'dot_wpfmc' ), array( &$this, 'section_favicon' ), 'dot_wpfmc_settings' );
-
 			add_settings_field( 'favicon_frontend_url', __( 'Favicon for Website', 'dot_wpfmc' ), array( &$this, 'section_favicon_frontend_url' ), 'dot_wpfmc_settings', 'favicon' );
-
 			add_settings_field( 'favicon_backend_url', __( 'Favicon for Admin', 'dot_wpfmc' ), array( &$this, 'section_favicon_backend_url' ), 'dot_wpfmc_settings', 'favicon' );
-
 			add_settings_field( 'apple_icon_frontend_url', __( 'Apple Touch Icon for Website', 'dot_wpfmc' ), array( &$this, 'section_apple_icon_frontend_url' ), 'dot_wpfmc_settings', 'favicon' );
-
 			add_settings_field( 'apple_icon_backend_url', __( 'Apple Touch Icon for Admin', 'dot_wpfmc' ), array( &$this, 'section_apple_icon_backend_url' ), 'dot_wpfmc_settings', 'favicon' );
-
 			add_settings_field( 'apple_icon_style', __( 'Basic Apple Touch Icon', 'dot_wpfmc' ), array( &$this, 'section_apple_icon_style' ), 'dot_wpfmc_settings', 'favicon' );
 
 			/**
@@ -258,14 +255,10 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 				// WooCommerce Branding
 				add_settings_section( 'woocommerce_branding', __( 'WooCommerce Branding', 'dot_wpfmc' ), array( &$this, 'section_woocommerce_branding' ), 'dot_wpfmc_settings' );
-
 				add_settings_field( 'woocommerce_branding_name', __( 'Name', 'dot_wpfmc' ), array( &$this, 'section_woocommerce_branding_name' ), 'dot_wpfmc_settings', 'woocommerce_branding' );
-
 				add_settings_field( 'woocommerce_branding_icon', __( 'Icon URL', 'dot_wpfmc' ), array( &$this, 'section_woocommerce_branding_icon' ), 'dot_wpfmc_settings', 'woocommerce_branding' );
 
 			}
-
-
 
 		}	//dot_wpfmc_settings
 
@@ -339,7 +332,6 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			echo '<input type="hidden" name="dot_wpfmc_settings[show_recent_drafts]" value="0" />
 			<label><input type="checkbox" name="dot_wpfmc_settings[show_recent_drafts]" value="1"'. (($options['show_recent_drafts']) ? ' checked="checked"' : '') .' />
 			 Show Recent Drafts Dashboard Widget</label>';
-
 		}
 
 		function section_facebook_admin_id() 	{
@@ -384,10 +376,16 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			<?php
 		}
 
-		function section_login_logo() 	{
+		function section_feedburner_configuration()  {}
 
-
+		function section_feedburner_url() 	{
+			$options = get_option( 'dot_wpfmc_settings' );
+			?>
+				<input type='text' id='dot_wpfmc_settings[feedburner_url]' class='text' name='dot_wpfmc_settings[feedburner_url]' value='<?php echo sanitize_text_field($options["feedburner_url"]); ?>'/>
+			<?php
 		}
+
+		function section_login_logo()  {}
 
 		function section_login_logo_url() 	{
 			$options = get_option( 'dot_wpfmc_settings' );
@@ -409,10 +407,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		}
 
 
-		function section_favicon() 	{
-
-
-		}
+		function section_favicon() {}
 
 		function section_favicon_frontend_url() {
 			$options = get_option( 'dot_wpfmc_settings' );
@@ -503,30 +498,9 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			return $input;
 		}
 
-
-		// Add Favicon to website frontend
-		function dot_wpfmc_favicon_frontend() {
-			$options =  get_option('dot_wpfmc_settings');
-
-			if( isset($options['favicon_frontend_url']) && $options['favicon_frontend_url'] != "" ) {
-				echo '<link rel="shortcut icon" href="'.  esc_url( $options["favicon_frontend_url"] )  .'"/>'."\n";
-			}
-
-			if( isset($options['apple_icon_frontend_url']) && $options['apple_icon_frontend_url'] != "" ) {
-
-				if ( $options['apple_icon_style'] == '0') {
-
-					echo '<link rel="apple-touch-icon" href="'.  esc_url( $options["apple_icon_frontend_url"] )  .'"/>'."\n";
-
-				}
-				else {
-
-					echo '<link rel="apple-touch-icon-precomposed" href="'.  esc_url( $options["apple_icon_frontend_url"] )  .'"/>'."\n";
-
-				}
-			}
-		}
-
+		/*--------------------------------------------*
+		 * OutPut
+		 *--------------------------------------------*/
 
 		// Add Favicon to website frontend
 		function dot_wpfmc_facebook_admin_id() {
@@ -583,6 +557,50 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		}
 
 
+		function dot_wpfmc_login_logo() {
+
+			$options = get_option( 'dot_wpfmc_settings' );
+			//if( !isset($options['login_logo_url']) ) $options['login_logo_url'] = '0';
+			//if( !isset($options['login_logo_url_height']) ) $options['login_logo_url_height'] = 'auto';
+
+			if( isset($options['login_logo_url']) && $options['login_logo_url'] != "" ) {
+				echo '<style type="text/css">
+				h1 a { background-image:url('.esc_url( $options["login_logo_url"] ).') !important; 	height:'.sanitize_text_field( $options["login_logo_height"] ).'px !important; background-size: auto auto !important; width: auto !important;}
+					</style>';
+			}
+		}
+
+		function dot_wpfmc_login_headertitle( $title ) {
+			return get_bloginfo( 'name' );
+		}
+
+		function dot_wpfmc_login_headerurl( $url ) {
+			return home_url();
+		}
+
+		// Add Favicon to website frontend
+		function dot_wpfmc_favicon_frontend() {
+			$options =  get_option('dot_wpfmc_settings');
+
+			if( isset($options['favicon_frontend_url']) && $options['favicon_frontend_url'] != "" ) {
+				echo '<link rel="shortcut icon" href="'.  esc_url( $options["favicon_frontend_url"] )  .'"/>'."\n";
+			}
+
+			if( isset($options['apple_icon_frontend_url']) && $options['apple_icon_frontend_url'] != "" ) {
+
+				if ( $options['apple_icon_style'] == '0') {
+
+					echo '<link rel="apple-touch-icon" href="'.  esc_url( $options["apple_icon_frontend_url"] )  .'"/>'."\n";
+
+				}
+				else {
+
+					echo '<link rel="apple-touch-icon-precomposed" href="'.  esc_url( $options["apple_icon_frontend_url"] )  .'"/>'."\n";
+
+				}
+			}
+		}
+
 		// Add Favicon to website backend
 		function dot_wpfmc_favicon_backend() {
 			$options =  get_option('dot_wpfmc_settings');
@@ -605,21 +623,6 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 				}
 			}
 		}
-
-
-		function dot_wpfmc_login_logo() {
-
-			$options = get_option( 'dot_wpfmc_settings' );
-			//if( !isset($options['login_logo_url']) ) $options['login_logo_url'] = '0';
-			//if( !isset($options['login_logo_url_height']) ) $options['login_logo_url_height'] = 'auto';
-
-			if( isset($options['login_logo_url']) && $options['login_logo_url'] != "" ) {
-				echo '<style type="text/css">
-				h1 a { background-image:url('.esc_url( $options["login_logo_url"] ).') !important; 	height:'.sanitize_text_field( $options["login_logo_height"] ).'px !important; background-size: auto auto !important; width: auto !important;}
-					</style>';
-			}
-		}
-
 
 		/*--------------------------------------------*
 		 * Remove Admin Menus
@@ -652,7 +655,6 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			if ( isset($options['hide_media']) && $options['hide_media'] == '1') {
 				remove_menu_page('upload.php');
 			}
-
 		}
 
 		/*--------------------------------------------*
@@ -680,14 +682,6 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 		}
 
-		function dot_wpfmc_login_headertitle( $title ) {
-			return get_bloginfo( 'name' );
-		}
-
-		function dot_wpfmc_login_headerurl( $url ) {
-			return home_url();
-		}
-
 		function dot_wpfmc_woocommerce_menu_title( $translated )
 		{
 			$options = get_option('dot_wpfmc_settings');
@@ -702,14 +696,11 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 				$translated = str_replace( 'WooCommerce', sanitize_text_field( $options["woocommerce_branding_name"]), $translated );
 				return $translated;
 			}
-
-
 		}
 
 		function dot_wpfmc_woocommerce_icon() {
 
 			$options = get_option( 'dot_wpfmc_settings' );
-
 
 			if( isset($options['woocommerce_branding_icon']) && $options['woocommerce_branding_icon'] != "" ) {
 				echo '<style type="text/css">
@@ -721,8 +712,94 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 					}
 					</style>';
 			}
-
 		}
+
+
+		/**
+		 * Returns the URL to the RSS feed based on what option the user
+		 * has selected throughout the theme.
+		 */
+		function dot_wpfmc_get_rss_feed_url() {
+
+			$options = get_option( 'dot_wpfmc_settings' );
+
+			$url = (string)get_feed_link( 'rss2' );
+			if( isset($options['feedburner_url']) && $options['feedburner_url'] != "" ) {
+				$url = $options['feedburner_url'];
+			}
+
+			return $url;
+
+		} // dot_get_rss_feed_url
+
+		/**
+		 * Returns the URL to the RSS feed based on what option the user
+		 * has selected throughout the theme.
+		 */
+		function dot_wpfmc_custom_rss_feed() {
+
+			if ( strpos( $output, 'comments' ) )
+				return $output;
+
+			$options = get_option( 'dot_wpfmc_settings' );
+
+			if( isset($options['feedburner_url']) && $options['feedburner_url'] != "" ) {
+				$url = $options['feedburner_url'];
+				return esc_url( $url );
+			}
+
+		} // dot_get_rss_feed_url
+
+
+		function dot_wpfmc_redirect_rss_feeds() {
+
+			global $feed;
+
+			// If we're not on a feed or we're requesting feedburner then stop the redirect
+			if( ! is_feed() || preg_match( '/feedburner/i', $_SERVER['HTTP_USER_AGENT'] ) ) {
+				return;
+			} // end if
+
+			// Otherwise, get the RSS feed from the user's settings
+			$rss_feed_url = dot_wpfmc_get_rss_feed_url();
+
+			// If they have setup feedburner, let's redirect them
+			if( strpos( $rss_feed_url, 'feedburner' ) > 0 && '' != $rss_feed_url ) {
+
+				switch( $feed ) {
+
+					case 'feed':
+					case 'rdf':
+					case 'rss':
+					case 'rss2':
+					case 'atom':
+
+						if( '' != $rss_feed_url ) {
+
+							header( "Location: " . $rss_feed_url );
+							die;
+
+						} // end if
+
+						break;
+
+					default:
+						break;
+
+				} // end switch/case
+
+			} // end if
+		}
+
+		/*-----------------------------------------------------------------------------------*/
+		/* SEO Plugins Check
+		/* Check if there any third party SEO plugins active
+		/* @return bool True is other plugin is detected
+		/*-----------------------------------------------------------------------------------*/
+
+		function dot_using_native_seo() {
+			return ! ( defined( 'WPSEO_PATH' ) || class_exists( 'All_in_One_SEO_Pack' ) || class_exists( 'Platinum_SEO_Pack' ) );
+		} // end dot_using_native_seo
 
 
 	} // End Class
