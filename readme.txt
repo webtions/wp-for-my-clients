@@ -2,10 +2,10 @@
 Contributors: hchouhan, dreamsonline, dreamsmedia
 Donate link: http://www.dreamsonline.net
 Tags: login logo, favicon, customize, login, apple touch, apple touch icon, upload, wordpress, admin, minimum, dashboad, cms, hide
-Stable tag: 3.0.5
+Stable tag: 3.1.0
 Requires at least: 3.5
-Tested up to: 3.8.1
-Last Updated: 2014-FEB-17
+Tested up to: 3.9.2
+Last Updated: 2014-AUG-31
 Plugin Name: WordPress for My Clients
 Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
 Author: Harish Chouhan
@@ -37,11 +37,14 @@ This plugin allows you to customize WordPress by hiding non essential wp-admin c
 
 If you want to change your login logo, add custom favicon and hide non-essential WordPress components, then this is the best plugin for it. Don't forget to give a review if you find this plugin useful.
 
-Please report any bugs you find via http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
+Please report any bugs you find via http://wordpress.org/support/plugin/wp-for-my-clients
 
 This is an experimental plugin created with a aim to keep themes light by adding common functionalities required by client projects into this plugin. This way updating websites is easier.
 
-
+> ** For Developers **
+>
+> If you're a developer and want to contribute, head over to ["WordPress for my Clients" plugin on GitHub](https://github.com/hchouhan/WordPress-for-My-Clients)
+>
 
 = My Links =
 
@@ -62,9 +65,9 @@ If you love the plugin, please consider rating it and clicking on "it works" but
 
 == Frequently Asked Questions ==
 
-Take a look at the [official "WordPress for my Clients" FAQ](http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/).
+Take a look at the [official "WordPress for my Clients" FAQ - Coming soon](http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/).
 
-You can also visit the [support center](http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/) and start a discussion if needed.
+You can also visit the [support center](http://wordpress.org/support/plugin/wp-for-my-clients) and start a discussion if needed.
 
 
 
