@@ -738,9 +738,9 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 		 */
 		function dot_wpfmc_custom_rss_feed() {
 
-			if ( strpos( $output, 'comments' ) )
+/*			if ( strpos( $output, 'comments' ) )
 				return $output;
-
+*/
 			$options = get_option( 'dot_wpfmc_settings' );
 
 			if( isset($options['feedburner_url']) && $options['feedburner_url'] != "" ) {
