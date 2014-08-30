@@ -52,7 +52,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			add_action( 'init', array( &$this, 'be_initialize_cmb_meta_boxes' ), 9999 );
 
 			add_action( 'init', array( &$this, 'dot_create_gallery' ) );
-			add_action( 'init', array( &$this, 'themeist_customizer_library' ), 9999 );
+			add_action( 'init', array( &$this, 'themeist_customizer_library' ) );
 
 			// Adding Plugin Menu
 			add_action( 'admin_menu', array( &$this, 'dot_wpfmc_menu' ) );
