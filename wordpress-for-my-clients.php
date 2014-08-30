@@ -95,10 +95,6 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			add_action('widgets_init', array( &$this, 'dot_widgets_init' ) );
 
 
-			// Feedburner Redirects
-			//add_action( 'template_redirect', array( &$this, 'dot_wpfmc_redirect_rss_feeds' ) );
-			//add_action( 'feed_link', array( &$this, 'dot_wpfmc_custom_rss_feed' ), 10, 2 );
-
 			// WooCommerce Branding
 			/**
 			 * Check if WooCommerce is active
