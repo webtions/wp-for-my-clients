@@ -97,8 +97,8 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 
 			// Feedburner Redirects
-			add_action( 'template_redirect', array( &$this, 'dot_wpfmc_redirect_rss_feeds' ) );
-			add_action( 'feed_link', array( &$this, 'dot_wpfmc_custom_rss_feed' ), 10, 2 );
+			//add_action( 'template_redirect', array( &$this, 'dot_wpfmc_redirect_rss_feeds' ) );
+			//add_action( 'feed_link', array( &$this, 'dot_wpfmc_custom_rss_feed' ), 10, 2 );
 
 			// WooCommerce Branding
 			/**
@@ -714,83 +714,6 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			}
 		}
 
-
-		/**
-		 * Returns the URL to the RSS feed based on what option the user
-		 * has selected throughout the theme.
-		 */
-		function dot_wpfmc_get_rss_feed_url() {
-
-			$options = get_option( 'dot_wpfmc_settings' );
-
-			$url = (string)get_feed_link( 'rss2' );
-			if( isset($options['feedburner_url']) && $options['feedburner_url'] != "" ) {
-				$url = $options['feedburner_url'];
-			}
-
-			return $url;
-
-		} // dot_get_rss_feed_url
-
-		/**
-		 * Returns the URL to the RSS feed based on what option the user
-		 * has selected throughout the theme.
-		 */
-		function dot_wpfmc_custom_rss_feed() {
-
-/*			if ( strpos( $output, 'comments' ) )
-				return $output;
-*/
-			$options = get_option( 'dot_wpfmc_settings' );
-
-			if( isset($options['feedburner_url']) && $options['feedburner_url'] != "" ) {
-				$url = $options['feedburner_url'];
-				return esc_url( $url );
-			}
-
-		} // dot_get_rss_feed_url
-
-
-		function dot_wpfmc_redirect_rss_feeds() {
-
-			global $feed;
-
-			// If we're not on a feed or we're requesting feedburner then stop the redirect
-			if( ! is_feed() || preg_match( '/feedburner/i', $_SERVER['HTTP_USER_AGENT'] ) ) {
-				return;
-			} // end if
-
-			// Otherwise, get the RSS feed from the user's settings
-			$rss_feed_url = dot_wpfmc_get_rss_feed_url();
-
-			// If they have setup feedburner, let's redirect them
-			if( strpos( $rss_feed_url, 'feedburner' ) > 0 && '' != $rss_feed_url ) {
-
-				switch( $feed ) {
-
-					case 'feed':
-					case 'rdf':
-					case 'rss':
-					case 'rss2':
-					case 'atom':
-
-						if( '' != $rss_feed_url ) {
-
-							header( "Location: " . $rss_feed_url );
-							die;
-
-						} // end if
-
-						break;
-
-					default:
-						break;
-
-				} // end switch/case
-
-			} // end if
-		}
-
 		/*-----------------------------------------------------------------------------------*/
 		/* SEO Plugins Check
 		/* Check if there any third party SEO plugins active
@@ -809,7 +732,5 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 	$dot_wpfmc = new DOT_WPFMC(__FILE__);
 
 }
-
-
 
 ?>
