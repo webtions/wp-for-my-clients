@@ -223,8 +223,8 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 
 			// Feed Settings
-			add_settings_section( 'feedburner_configuration', __( 'Feedburner Settings', 'dot_wpfmc' ), array( &$this, 'section_feedburner_configuration' ), 'dot_wpfmc_settings' );
-			add_settings_field( 'feedburner_url', __( 'Feedburner URL', 'dot_wpfmc' ), array( &$this, 'section_feedburner_url' ), 'dot_wpfmc_settings', 'feedburner_configuration' );
+			//add_settings_section( 'feedburner_configuration', __( 'Feedburner Settings', 'dot_wpfmc' ), array( &$this, 'section_feedburner_configuration' ), 'dot_wpfmc_settings' );
+			//add_settings_field( 'feedburner_url', __( 'Feedburner URL', 'dot_wpfmc' ), array( &$this, 'section_feedburner_url' ), 'dot_wpfmc_settings', 'feedburner_configuration' );
 
 			// Logo Settings
 			add_settings_section( 'login_logo', __( 'Login Logo Settings', 'dot_wpfmc' ), array( &$this, 'section_login_logo' ), 'dot_wpfmc_settings' );
@@ -242,14 +242,14 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			/**
 			 * Check if WooCommerce is active
 			 **/
-			if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+			// if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
-				// WooCommerce Branding
-				add_settings_section( 'woocommerce_branding', __( 'WooCommerce Branding', 'dot_wpfmc' ), array( &$this, 'section_woocommerce_branding' ), 'dot_wpfmc_settings' );
-				add_settings_field( 'woocommerce_branding_name', __( 'Name', 'dot_wpfmc' ), array( &$this, 'section_woocommerce_branding_name' ), 'dot_wpfmc_settings', 'woocommerce_branding' );
-				add_settings_field( 'woocommerce_branding_icon', __( 'Icon URL', 'dot_wpfmc' ), array( &$this, 'section_woocommerce_branding_icon' ), 'dot_wpfmc_settings', 'woocommerce_branding' );
+			// 	// WooCommerce Branding
+			// 	add_settings_section( 'woocommerce_branding', __( 'WooCommerce Branding', 'dot_wpfmc' ), array( &$this, 'section_woocommerce_branding' ), 'dot_wpfmc_settings' );
+			// 	add_settings_field( 'woocommerce_branding_name', __( 'Name', 'dot_wpfmc' ), array( &$this, 'section_woocommerce_branding_name' ), 'dot_wpfmc_settings', 'woocommerce_branding' );
+			// 	add_settings_field( 'woocommerce_branding_icon', __( 'Icon URL', 'dot_wpfmc' ), array( &$this, 'section_woocommerce_branding_icon' ), 'dot_wpfmc_settings', 'woocommerce_branding' );
 
-			}
+			// }
 
 		}	//dot_wpfmc_settings
 
