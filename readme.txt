@@ -2,10 +2,10 @@
 Contributors: hchouhan, dreamsonline, dreamsmedia
 Donate link: http://www.dreamsonline.net
 Tags: login logo, favicon, customize, login, apple touch, apple touch icon, upload, wordpress, admin, minimum, dashboad, cms, hide
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 Requires at least: 3.5
 Tested up to: 3.9.2
-Last Updated: 2014-AUG-31
+Last Updated: 2014-SEP-01
 Plugin Name: WordPress for My Clients
 Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
 Author: Harish Chouhan
@@ -72,6 +72,14 @@ You can also visit the [support center](http://wordpress.org/support/plugin/wp-f
 
 
 == Changelog ==
+
+= 3.1.1
+* Updated readmde and fix some tag issue
+
+= 3.1.0
+* Updated Custom Meta Box Library to 1.20
+* Added Customizer Library by Devin Price
+* Added Website Verification fields for Google Webmaster tools, Alexa, Yahoo, Bing & Pinterest
 
 = 3.0.5
 * Changed WP_PLUGIN_URL to plugins_url()
