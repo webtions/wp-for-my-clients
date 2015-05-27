@@ -3,7 +3,7 @@
  * Plugin Name: WordPress for my Clients
  * Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
  * Description: Helps customize WordPress for your clients by hiding non essential wp-admin components and by adding support for custom login logo and favicon for website and admin pages.
- * Version: 3.1.0
+ * Version: 3.1.2
  * Author: Dreams Online Themes
  * Author URI: http://www.dreamsonline.net/wordpress-themes/
  * Author Email: hello@dreamsmedia.in
