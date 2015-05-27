@@ -2,7 +2,7 @@
 Contributors: hchouhan, dreamsmedia, themeist
 Donate link: http://themeist.co
 Tags: login logo, favicon, customize, login, apple touch, apple touch icon, upload, wordpress, admin, minimum, dashboad, cms, hide
-Stable tag: 3.1.2
+Stable tag: 3.1.3
 Requires at least: 3.5
 Tested up to: 4.2.2
 Last Updated: 2015-MAY-27
@@ -72,6 +72,9 @@ You can also visit the [support center](http://wordpress.org/support/plugin/wp-f
 
 
 == Changelog ==
+
+= 3.1.3
+* Fixed version number
 
 = 3.1.2
 * Updated Customizer Library to 1.3.0
