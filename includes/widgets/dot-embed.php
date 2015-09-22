@@ -3,7 +3,7 @@
 Plugin Name: Embed Widget by Themeist
 Plugin URI: http://themeist.co
 Description: A simple but powerful widget to Embed Videos.
-Version: 1.0.0
+Version: 1.0.1
 Author: themeist, hchouhan
 Author URI: http://themeist.co
 */
