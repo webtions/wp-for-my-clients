@@ -11,7 +11,7 @@ Author URI: http://themeist.co
 class Themeist_Contact_Widget extends WP_Widget {
 
 	/**
-	 * Sets up the widgets name etc
+	 * Register widget with WordPress.
 	 */
 	function __construct() {
 		$widget_ops = array('description' => __('Display your Contact Informations', 'dot') );
