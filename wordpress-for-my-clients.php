@@ -149,7 +149,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 			// Flickr Widget
 			require_once('includes/widgets/dot-flickr.php');
-			register_widget('widget_flickr');
+			register_widget('Themeist_Flickr_Widget');
 
 		}
 
