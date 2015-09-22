@@ -105,7 +105,7 @@ class Themeist_Contact_Widget extends WP_Widget {
 			<input class="widefat" style="width: 216px;" id="<?php echo $this->get_field_id('web'); ?>" name="<?php echo $this->get_field_name('web'); ?>" value="<?php echo $instance['web']; ?>" />
 		</p>
 
-    <?php
+	<?php
 	}
 
 	/**
