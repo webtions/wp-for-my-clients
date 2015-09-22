@@ -1,5 +1,4 @@
 <?php
-
 /*
 Plugin Name: Contact Widget by Themeist
 Plugin URI: http://themeist.co
@@ -9,7 +8,7 @@ Author: themeist, hchouhan
 Author URI: http://themeist.co
 */
 
-class widget_contact extends WP_Widget {
+class Themeist_Contact_Widget extends WP_Widget {
 
 	/**
 	 * Sets up the widgets name etc
@@ -19,14 +18,21 @@ class widget_contact extends WP_Widget {
 		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'contact' );
 		parent::__construct(
 			'contact',
-			__('DOT Contact', 'dot'),
+			__('Themeist Contact Card', 'dot'),
 			$widget_ops,
 			$control_ops
 		);
 	}
 
-	// Widget Output
-	function widget($args, $instance) {
+	/**
+	 * Front-end display of widget.
+	 *
+	 * @see WP_Widget::widget()
+	 *
+	 * @param array $args     Widget arguments.
+	 * @param array $instance Saved values from database.
+	 */
+	public function widget( $args, $instance ) {
 		extract($args);
 		$title = apply_filters('widget_title', $instance['title']);
 		// ------
@@ -61,26 +67,18 @@ class widget_contact extends WP_Widget {
 		// ------
 	}
 
-	// Update
-	function update( $new_instance, $old_instance ) {
-		$instance = $old_instance;
+	/**
+	 * Back-end widget form.
+	 *
+	 * @see WP_Widget::form()
+	 *
+	 * @param array $instance Previously saved values from database.
+	 */
+	public function form( $instance ) {
 
-		$instance['title'] = $new_instance['title'];
-		$instance['address'] = $new_instance['address'];
-		$instance['phone'] = $new_instance['phone'];
-		$instance['fax'] = $new_instance['fax'];
-		$instance['email'] = $new_instance['email'];
-		$instance['web'] = $new_instance['web'];
-
-		return $instance;
-	}
-
-	// Backend Form
-	function form($instance) {
-
-		//$defaults = array( 'title' => 'Twitter Widget', 'posts' => '3', 'username' => 'hellodot' ); // Default Values
 		$defaults = array('title' => 'Contact Info', 'address' => '', 'phone' => '', 'fax' => '', 'email' => '', 'web' => '');
-		$instance = wp_parse_args((array) $instance, $defaults); ?>
+		$instance = wp_parse_args((array) $instance, $defaults);
+		?>
 
 		<p>
 			<label for="<?php echo $this->get_field_id('title'); ?>">Title:</label>
@@ -107,7 +105,20 @@ class widget_contact extends WP_Widget {
 			<input class="widefat" style="width: 216px;" id="<?php echo $this->get_field_id('web'); ?>" name="<?php echo $this->get_field_name('web'); ?>" value="<?php echo $instance['web']; ?>" />
 		</p>
 
-    <?php }
-}
+    <?php
+	}
 
+	// Update
+	function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['title'] = $new_instance['title'];
+		$instance['address'] = $new_instance['address'];
+		$instance['phone'] = $new_instance['phone'];
+		$instance['fax'] = $new_instance['fax'];
+		$instance['email'] = $new_instance['email'];
+		$instance['web'] = $new_instance['web'];
+		return $instance;
+	}
+
+} // class Themeist_Contact_Widget
 ?>

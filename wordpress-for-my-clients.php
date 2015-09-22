@@ -137,7 +137,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 			// Contact Card Widget
 			require_once('includes/widgets/dot-contact.php');
-			register_widget('widget_contact');
+			register_widget('Themeist_Contact_Widget');
 
 
 			// Facebook Widget
