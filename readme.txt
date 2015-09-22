@@ -1,21 +1,19 @@
 === WordPress for My Clients ===
-Contributors: hchouhan, dreamsmedia, themeist
+Contributors: themeist, hchouhan
 Donate link: http://themeist.co
 Tags: login logo, favicon, customize, login, apple touch, apple touch icon, upload, wordpress, admin, minimum, dashboad, cms, hide
-
-Stable tag: 3.1.3
 Requires at least: 3.5
-Tested up to: 4.2.2
-Last Updated: 2015-MAY-27
+Tested up to: 4.3.1
+Stable tag: 3.1.4
 Plugin Name: WordPress for My Clients
-Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
-Author: Harish Chouhan
-Author URI: http://www.dreamsonline.net/wordpress-themes/
+Plugin URI: http://themeist.co/plugins/wordpress/wordpress-for-my-clients/
+Author: Themeist
+Author URI: http://themeist.co
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
-This plugin allows you to customize WordPress by adding support to upload custom login logo, favicon & Apple touch icon and by hiding non essential wp-admin components.
+This plugin allows you to customize WordPress by adding support to upload custom login logo, custom favicon & Apple touch icon and by hiding non essential wp-admin components.
 
 
 == Description ==
@@ -74,9 +72,11 @@ You can also visit the [support center](http://wordpress.org/support/plugin/wp-f
 
 == Changelog ==
 
+= 3.1.4
+* Fixed Code of included widgets & code cleanup
+
 = 3.1.3
 * Fixed version number
-
 
 = 3.1.2
 * Updated Customizer Library to 1.3.0
@@ -104,12 +104,10 @@ You can also visit the [support center](http://wordpress.org/support/plugin/wp-f
 * Added Gallery Meta Box library.
 * Disabled WooCommerce branding option due to some bugs.
 
-
 = 2.0.0
 * Added support to upload custom logo for login page and set a custom height
 * Added support to upload favicon and apple touch icons for both the frontend and the dashboard
 * Added support to remove curved border and reflective shine from Apple touch icon
-
 
 = 1.0.0
 * This is the first version
