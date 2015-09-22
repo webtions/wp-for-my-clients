@@ -3,7 +3,7 @@
 Plugin Name: WordPress for my Clients
 Plugin URI: http://themeist.co/plugins/wordpress/wordpress-for-my-clients/
 Description: Helps customize WordPress for your clients by hiding non essential wp-admin components and by adding support for custom login logo and favicon for website and admin pages.
-Version: 3.1.3
+Version: 3.1.4
 Author: Themeist
 Author URI: http://themeist.co
 License: GPL v3
