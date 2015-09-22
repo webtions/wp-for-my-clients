@@ -12,10 +12,15 @@ Author URI: http://twitter.com/dreams_media/
 class widget_embed extends WP_Widget_Text {
 
 	// Widget Settings
-	function widget_embed() {
+	function __construct() {
 		$widget_ops = array('description' => __('Display Embed Video', 'dot') );
 		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'embed' );
-		$this->WP_Widget( 'embed', __('DOT Embed', 'dot'), $widget_ops, $control_ops );
+		parent::__construct(
+			'embed',
+			__('DOT Embed', 'dot'),
+			$widget_ops,
+			$control_ops
+		);
 	}
 
 	// Widget Output
