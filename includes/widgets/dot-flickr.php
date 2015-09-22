@@ -3,7 +3,7 @@
 Plugin Name: Flickr Widget by Themeist
 Plugin URI: http://themeist.co
 Description: A simple but powerful widget to display Flickr Feed.
-Version: 1.0.0
+Version: 1.0.1
 Author: themeist, hchouhan
 Author URI: http://themeist.co
 */
