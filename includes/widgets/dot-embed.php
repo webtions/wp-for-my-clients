@@ -68,7 +68,7 @@ class Themeist_Embed_Widget extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>">Widget Title:</label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" />
 		</p>
-        <p>
+		<p>
 			<label for="<?php echo $this->get_field_id( 'embed' ); ?>">Embed Code:</label>
 			<textarea class="widefat" rows="4" cols="20" id="<?php echo $this->get_field_id( 'embed' ); ?>" name="<?php echo $this->get_field_name( 'embed' ); ?>"><?php echo $instance['embed']; ?></textarea>
 		</p>
@@ -77,7 +77,7 @@ class Themeist_Embed_Widget extends WP_Widget {
 			<textarea class="widefat" rows="2" cols="20" id="<?php echo $this->get_field_id( 'description' ); ?>" name="<?php echo $this->get_field_name( 'description' ); ?>"><?php echo $instance['description']; ?></textarea>
 		</p>
 
-    <?php
+	<?php
 	}
 
 	/**
