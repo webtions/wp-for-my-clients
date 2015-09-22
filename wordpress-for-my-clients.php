@@ -1,37 +1,37 @@
 <?php
 /*
- * Plugin Name: WordPress for my Clients
- * Plugin URI: http://www.dreamsonline.net/wordpress-plugins/wordpress-for-my-clients/
- * Description: Helps customize WordPress for your clients by hiding non essential wp-admin components and by adding support for custom login logo and favicon for website and admin pages.
- * Version: 3.1.3
- * Author: Dreams Online Themes
- * Author URI: http://www.dreamsonline.net/wordpress-themes/
- * Author Email: hello@dreamsmedia.in
- *
- * @package WordPress
- * @subpackage DOT_WPFMC
- * @author Harish
- * @since 1.0
- *
- * License:
+Plugin Name: WordPress for my Clients
+Plugin URI: http://themeist.co/plugins/wordpress/wordpress-for-my-clients/
+Description: Helps customize WordPress for your clients by hiding non essential wp-admin components and by adding support for custom login logo and favicon for website and admin pages.
+Version: 3.1.3
+Author: Themeist
+Author URI: http://themeist.co
+License: GPL v3
 
-  Copyright 2013 "WordPress for my Clients WordPress Plugin" (hello@dreamsmedia.in)
+WordPress for my Clients WordPress Plugin
+Copyright 2015, Harish Chouhan (hello@dreamsmedia.in)
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License, version 2, as
-  published by the Free Software Foundation.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
- */
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+// Prevent direct file access
+if( ! defined( 'ABSPATH' ) ) {
+	header( 'Status: 403 Forbidden' );
+	header( 'HTTP/1.1 403 Forbidden' );
+	exit;
+}
+
 if ( ! class_exists( 'DOT_WPFMC' ) ) {
 
 
