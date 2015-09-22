@@ -15,7 +15,12 @@ class widget_flickr extends WP_Widget {
 	function widget_flickr() {
 		$widget_ops = array('description' => __('Display your latest Flickr Photos', 'dot') );
 		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'flickr' );
-		$this->WP_Widget( 'flickr', __('DOT Flickr', 'dot'), $widget_ops, $control_ops );
+		parent::__construct(
+			'flickr',
+			__('DOT Flickr', 'dot'),
+			$widget_ops,
+			$control_ops
+		);
 	}
 
 	// Widget Output
