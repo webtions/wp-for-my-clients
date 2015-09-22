@@ -1,18 +1,19 @@
 <?php
-
 /*
-Plugin Name: DOT Facebook Widget
-Plugin URI: http://twitter.com/dreams_media/
+Plugin Name: Facebook Widget by Themeist
+Plugin URI: http://themeist.co
 Description: A simple but powerful widget to display Facebook Box.
-Version: 1.00
-Author: hchouhan, dreamsmedia, dreamsonline
-Author URI: http://twitter.com/dreams_media/
+Version: 1.0.0
+Author: themeist, hchouhan
+Author URI: http://themeist.co
 */
 
 class widget_facebook extends WP_Widget {
 
-	// Widget Settings
-	function widget_facebook() {
+	/**
+	 * Sets up the widgets name etc
+	 */
+	function __construct() {
 		$widget_ops = array('description' => __('Display Facebook Like Box', 'dot') );
 		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'facebook' );
 		parent::__construct(
@@ -22,9 +23,17 @@ class widget_facebook extends WP_Widget {
 		);
 	}
 
-	// Widget Output
-	function widget($args, $instance) {
+	/**
+	 * Front-end display of widget.
+	 *
+	 * @see WP_Widget::widget()
+	 *
+	 * @param array $args     Widget arguments.
+	 * @param array $instance Saved values from database.
+	 */
+	function widget( $args, $instance ) {
 		extract($args);
+
 		$title = apply_filters('widget_title', $instance['title']);
 		$page_url = $instance['page_url'];
 		$width = $instance['width'];
@@ -60,26 +69,18 @@ class widget_facebook extends WP_Widget {
 		// ------
 	}
 
-	// Update
-	function update( $new_instance, $old_instance ) {
-		$instance = $old_instance;
-
-		$instance['title'] = strip_tags($new_instance['title']);
-		$instance['page_url'] = $new_instance['page_url'];
-		$instance['width'] = $new_instance['width'];
-		$instance['color_scheme'] = $new_instance['color_scheme'];
-		$instance['show_faces'] = $new_instance['show_faces'];
-		$instance['show_stream'] = $new_instance['show_stream'];
-		$instance['show_header'] = $new_instance['show_header'];
-
-		return $instance;
-	}
-
-	// Backend Form
-	function form($instance) {
+	/**
+	 * Back-end widget form.
+	 *
+	 * @see WP_Widget::form()
+	 *
+	 * @param array $instance Previously saved values from database.
+	 */
+	function form( $instance ) {
 
 		$defaults = array('title' => 'Find us on Facebook', 'page_url' => '', 'width' => '220', 'color_scheme' => 'light', 'show_faces' => 'on', 'show_stream' => false, 'show_header' => false);
-		$instance = wp_parse_args((array) $instance, $defaults); ?>
+		$instance = wp_parse_args((array) $instance, $defaults);
+		?>
 
 		<p>
 			<label for="<?php echo $this->get_field_id('title'); ?>">Title:</label>
@@ -119,8 +120,32 @@ class widget_facebook extends WP_Widget {
 			<label for="<?php echo $this->get_field_id('show_header'); ?>">Show facebook header</label>
 		</p>
 
-    <?php }
+    <?php
+	}
+
+	/**
+	 * Sanitize widget form values as they are saved.
+	 *
+	 * @see WP_Widget::update()
+	 *
+	 * @param array $new_instance Values just sent to be saved.
+	 * @param array $old_instance Previously saved values from database.
+	 *
+	 * @return array Updated safe values to be saved.
+	 */
+	function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+
+		$instance['title'] = strip_tags($new_instance['title']);
+		$instance['page_url'] = $new_instance['page_url'];
+		$instance['width'] = $new_instance['width'];
+		$instance['color_scheme'] = $new_instance['color_scheme'];
+		$instance['show_faces'] = $new_instance['show_faces'];
+		$instance['show_stream'] = $new_instance['show_stream'];
+		$instance['show_header'] = $new_instance['show_header'];
+
+		return $instance;
+	}
+
 }
-
-
 ?>
