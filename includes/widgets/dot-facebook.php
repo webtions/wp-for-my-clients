@@ -8,7 +8,7 @@ Author: themeist, hchouhan
 Author URI: http://themeist.co
 */
 
-class widget_facebook extends WP_Widget {
+class Themeist_Facebook_Widget extends WP_Widget {
 
 	/**
 	 * Sets up the widgets name etc
@@ -17,7 +17,7 @@ class widget_facebook extends WP_Widget {
 		$widget_ops = array('description' => __('Display Facebook Like Box', 'dot') );
 		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'facebook' );
 		parent::__construct(
-			'facebook', __('DOT Facebook', 'dot'),
+			'facebook', __('Themeist Facebook Page Widget', 'dot'),
 			$widget_ops,
 			$control_ops
 		);
@@ -147,5 +147,5 @@ class widget_facebook extends WP_Widget {
 		return $instance;
 	}
 
-}
+} // class Themeist_Facebook_Widget
 ?>

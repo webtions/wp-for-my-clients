@@ -139,10 +139,9 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			require_once('includes/widgets/dot-contact.php');
 			register_widget('Themeist_Contact_Widget');
 
-
 			// Facebook Widget
 			require_once('includes/widgets/dot-facebook.php');
-			register_widget('widget_facebook');
+			register_widget('Themeist_Facebook_Widget');
 
 			// Flickr Widget
 			require_once('includes/widgets/dot-flickr.php');
