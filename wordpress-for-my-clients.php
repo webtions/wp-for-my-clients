@@ -143,13 +143,14 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			require_once('includes/widgets/dot-facebook.php');
 			register_widget('Themeist_Facebook_Widget');
 
+			// Embed Widget
+			require_once('includes/widgets/dot-embed.php');
+			register_widget('Themeist_Embed_Widget');
+
 			// Flickr Widget
 			require_once('includes/widgets/dot-flickr.php');
 			register_widget('widget_flickr');
 
-			// Embed Widget
-			require_once('includes/widgets/dot-embed.php');
-			register_widget('widget_embed');
 		}
 
 		/*--------------------------------------------*
