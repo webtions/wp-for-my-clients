@@ -1,21 +1,28 @@
 <?php
 
 /*
-Plugin Name: DOT Contact Widget
-Plugin URI: http://twitter.com/dreams_media/
-Description: A simple but powerful widget to display Contact Informations.
-Version: 1.00
-Author: hchouhan, dreamsmedia, dreamsonline
-Author URI: http://twitter.com/dreams_media/
+Plugin Name: Contact Widget by Themeist
+Plugin URI: http://themeist.co
+Description: A simple but powerful widget to display Contact details.
+Version: 1.0.1
+Author: themeist, hchouhan
+Author URI: http://themeist.co
 */
 
 class widget_contact extends WP_Widget {
 
-	// Widget Settings
-	function widget_contact() {
+	/**
+	 * Sets up the widgets name etc
+	 */
+	function __construct() {
 		$widget_ops = array('description' => __('Display your Contact Informations', 'dot') );
 		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'contact' );
-		$this->WP_Widget( 'contact', __('DOT Contact', 'dot'), $widget_ops, $control_ops );
+		parent::__construct(
+			'contact',
+			__('DOT Contact', 'dot'),
+			$widget_ops,
+			$control_ops
+		);
 	}
 
 	// Widget Output
