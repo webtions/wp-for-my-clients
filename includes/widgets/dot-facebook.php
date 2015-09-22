@@ -15,13 +15,16 @@ class widget_facebook extends WP_Widget {
 	function widget_facebook() {
 		$widget_ops = array('description' => __('Display Facebook Like Box', 'dot') );
 		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'facebook' );
-		$this->WP_Widget( 'facebook', __('DOT Facebook', 'dot'), $widget_ops, $control_ops );
+		parent::__construct(
+			'facebook', __('DOT Facebook', 'dot'),
+			$widget_ops,
+			$control_ops
+		);
 	}
 
 	// Widget Output
 	function widget($args, $instance) {
 		extract($args);
-
 		$title = apply_filters('widget_title', $instance['title']);
 		$page_url = $instance['page_url'];
 		$width = $instance['width'];
