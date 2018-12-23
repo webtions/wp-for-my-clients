@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WordPress for my Clients
-Plugin URI: http://themeist.co/plugins/wordpress/wordpress-for-my-clients/
+Plugin URI: http://themeist.com/plugins/wordpress/wordpress-for-my-clients/
 Description: Helps customize WordPress for your clients by hiding non essential wp-admin components and by adding support for custom login logo and favicon for website and admin pages.
 Version: 3.1.4
 Author: Themeist
-Author URI: http://themeist.co
+Author URI: http://themeist.com
 License: GPL v3
 
 WordPress for my Clients WordPress Plugin
@@ -49,7 +49,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			// Load text domain
 			add_action( 'init', array( $this, 'load_localisation' ), 0 );
 
-			add_action( 'init', array( &$this, 'be_initialize_cmb_meta_boxes' ), 9999 );
+			//add_action( 'init', array( &$this, 'be_initialize_cmb_meta_boxes' ), 9999 );
 			add_action( 'init', array( &$this, 'dot_create_gallery' ) );
 			add_action( 'init', array( &$this, 'themeist_customizer_library' ) );
 

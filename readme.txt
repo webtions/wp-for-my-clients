@@ -1,14 +1,14 @@
 === WordPress for My Clients ===
 Contributors: themeist, hchouhan
-Donate link: http://themeist.co
+Donate link: http://themeist.com
 Tags: login logo, favicon, customize, login, apple touch, apple touch icon, upload, wordpress, admin, minimum, dashboad, cms, hide
 Requires at least: 3.5
 Tested up to: 4.3.1
 Stable tag: 3.1.4
 Plugin Name: WordPress for My Clients
-Plugin URI: http://themeist.co/plugins/wordpress/wordpress-for-my-clients/
+Plugin URI: http://themeist.com/plugins/wordpress/wordpress-for-my-clients/
 Author: Themeist
-Author URI: http://themeist.co
+Author URI: http://themeist.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
