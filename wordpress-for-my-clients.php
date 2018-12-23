@@ -125,6 +125,13 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			}
 		}
 
+		/**
+		 * Get the bootstrap!
+		 * (Update path to use cmb2 or CMB2, depending on the name of the folder.
+		 * Case-sensitive is important on some systems.)
+		 */
+		require_once __DIR__ . '/cmb2/init.php';
+
 		// -------------- Initialize Custom Image Gallery --------------
 		function dot_create_gallery() {
 			if ( !function_exists( 'gallery_metabox_enqueue' ) && ( current_theme_supports('dot_gallery_support') ) ) {
