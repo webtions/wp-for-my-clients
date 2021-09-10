@@ -72,7 +72,7 @@ if ( ! class_exists( 'DOT_WPFMC' ) ) {
 			add_filter( 'login_headerurl', array( &$this, 'dot_wpfmc_login_headerurl' ) );
 
 			// Change Login header Title
-			add_filter( 'login_headertitle', array( &$this, 'dot_wpfmc_login_headertitle' ) );
+			add_filter( 'login_headertext', array( &$this, 'dot_wpfmc_login_headertitle' ) );
 
 			// Change the default Login page Logo
 			add_action( 'login_head', array( &$this, 'dot_wpfmc_login_logo' ) );
